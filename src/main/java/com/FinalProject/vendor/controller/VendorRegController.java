@@ -21,7 +21,4 @@ public class VendorRegController {
         return  "ShowVendor";
     }
 
-    public String setFirstName(String firstName) {
-        return firstName;
-    }
 }
