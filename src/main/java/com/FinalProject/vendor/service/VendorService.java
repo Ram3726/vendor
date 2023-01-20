@@ -20,13 +20,16 @@ public class VendorService {
         VendorRegistrationTable vendorRegistrationTable = new VendorRegistrationTable();
         vendorRegistrationTable.setFirstName(vendorRegModel.getFirstName());
         vendorRegistrationTable.setLastName(vendorRegModel.getLastName());
-        vendorRegistrationTable.setCompanyName(vendorRegModel.getCompanyName());
+        //vendorRegistrationTable.setCompanyName(vendorRegModel.getCompanyName());
         vendorRegistrationTable.setAddress(vendorRegModel.getAddress());
         vendorRegistrationTable.setEmail(vendorRegModel.getEmail());
         vendorRegistrationTable.setPhoneNumber(vendorRegModel.getPhoneNumber());
         vendorRegistrationTable.setPassword(vendorRegModel.getPassword());
         vendorRegistrationTable.setConfirmPassword(vendorRegModel.getConfirmPassword());
-        vendorRegistrationTable.setOperatingCity(vendorRegModel.getOperatingCity());
+       // vendorRegistrationTable.setOperatingCity(vendorRegModel.getOperatingCity());
+        vendorRegistrationTable.setLicenseNumber(vendorRegModel.getLicenseNumber());
+        vendorRegistrationTable.setBusinessRegistrationNo(vendorRegModel.getBusinessRegistrationNo());
+        vendorRegistrationTable.setStatus(vendorRegModel.getStatus());
 
         try {
             vendorRegRepository.save(vendorRegistrationTable);
