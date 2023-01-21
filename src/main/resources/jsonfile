@@ -10,3 +10,18 @@
 	"BusinessRegistrationNo": "R654654ERT",
 	"status": "A"
 }
+
+{
+ "carType": "TUV",
+	"carModel": "Innova",
+	"carSeater": "2-seater",
+	"baggageCapacity": "3-bags",
+	"carRegistration": "KA4234RT",
+	"carACorNonAc": "Non AC",
+	"basePrice": 8,
+	"yearsOld": "3",
+	"insurance": "A",
+	"status": "Available",
+	"imageUrl": "rtc.jpg"
+
+}
