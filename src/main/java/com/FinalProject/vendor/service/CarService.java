@@ -3,6 +3,7 @@ package com.FinalProject.vendor.service;
 import com.FinalProject.vendor.entity.CarTable;
 import com.FinalProject.vendor.model.CarInformation;
 import com.FinalProject.vendor.repository.CarRepository;
+import com.FinalProject.vendor.repository.VendorRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,14 @@ import org.springframework.stereotype.Service;
 public class CarService {
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    VendorRegRepository vendorRegRepository;
 
 
     public String  saveCar(CarInformation carInformation) {
+       Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
+
+
         CarTable carTable = new CarTable();
         carTable.setCarType(carInformation.getCarType());
         carTable.setCarModel(carInformation.getCarModel());
@@ -25,6 +31,7 @@ public class CarService {
         carTable.setInsurance(carInformation.getInsurance());
         carTable.setStatus(carInformation.getStatus());
         carTable.setImageUrl(carInformation.getImageUrl());
+        carTable.setVendorId(vendorId);
 
 
         try {

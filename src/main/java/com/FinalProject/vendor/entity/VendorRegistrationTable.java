@@ -12,6 +12,7 @@ public class VendorRegistrationTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "vendor_Id")
     private Integer id;
 
     @Column(name = "first_Name")
