@@ -1,0 +1,60 @@
+
+[{
+	"carType": "sedan",
+	"carModel": "Etios",
+    "carSeater": "2-seater",
+    "baggageCapacity": "3-bags",
+    "carRegistration": "KA4234RT",
+    "carACorNonAc": "Non AC",
+	"basePrice": 8,
+    "yearsOld": "3",
+	"insurance": "A",
+    "status": "Available",
+	"imageUrl": "rtc.jpg"
+
+},
+{
+	"carType": "SUV",
+	"carModel": "Innova",
+    "carSeater": "5-seater",
+    "baggageCapacity": "3-bags",
+    "carRegistration": "KA4234RT",
+    "carACorNonAc": "AC",
+	"basePrice": 2,
+    "yearsOld": "5",
+	"insurance": "A",
+    "status": "Available",
+	"imageUrl": "pgh.jpg"
+
+},
+{
+	"carType": "Hatchback",
+	"carModel": "Swift",
+    "carSeater": "6-seater",
+    "baggageCapacity": "5-bags",
+    "carRegistration": "KA4234RT",
+    "carACorNonAc": "Non AC",
+	"basePrice": 4,
+    "yearsOld": "7",
+	"insurance": "A",
+    "status": "Available",
+	"imageUrl": "dpm.jpg"
+
+},
+{
+	"carType": "SUV",
+	"carModel": "Alcazer",
+    "carSeater": "4-seater",
+    "baggageCapacity": "7-bags",
+    "carRegistration": "KA4234VT",
+    "carACorNonAc": "Non AC",
+	"basePrice": 6,
+    "yearsOld": "2",
+	"insurance": "A",
+    "status": "Not-Available",
+	"imageUrl": "prc.jpg"
+
+}
+
+]
+
