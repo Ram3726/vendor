@@ -3,10 +3,10 @@ package com.FinalProject.vendor.controller;
 import com.FinalProject.vendor.model.CarInformation;
 import com.FinalProject.vendor.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/carController")
@@ -15,12 +15,24 @@ public class CarController {
     private CarService carService;
 
 
+
+
+
+
+
+    @GetMapping("/carsDetails")
+
+    public List<CarInformation> finData(@RequestParam Integer vendorId){
+        List <CarInformation> carInformation = this.carService.fetchRecords(vendorId);
+
+        return carInformation;
+    }
+
     @PostMapping("/save")
-    public String saveCar(@RequestBody CarInformation carInformation){
+
+    public String save(@RequestBody List<CarInformation> carInformation) {
         this.carService.saveCar(carInformation);
-
-
-        return "success";
+        return "Success!!!";
     }
 
 
