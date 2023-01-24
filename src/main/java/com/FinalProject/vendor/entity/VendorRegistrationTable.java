@@ -51,4 +51,7 @@ public class VendorRegistrationTable {
     @Column(name = "status")
     private String status;
 
+   // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) // mapping vendorReg table with LoginTable
+   // private LoginTable loginTable;  ( Either of one way is good to mapping for login and VendReg table)
+
 }
