@@ -1,5 +1,6 @@
 package com.FinalProject.vendor.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-
 @Entity
 @Table(name = "Car_Info")
 public class CarTable {
