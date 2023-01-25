@@ -1,6 +1,8 @@
 package com.FinalProject.vendor.service;
 
 import com.FinalProject.vendor.entity.CarTable;
+import com.FinalProject.vendor.entity.LoginTable;
+import com.FinalProject.vendor.entity.VendorRegistrationTable;
 import com.FinalProject.vendor.model.CarInformation;
 import com.FinalProject.vendor.repository.CarRepository;
 import com.FinalProject.vendor.repository.VendorRegRepository;
@@ -49,18 +51,46 @@ public class CarService {
         Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
         for (CarInformation carInfo : carInformation) {//advance loop to set each element from model
             CarTable carTable = new CarTable();
-            carTable.setCarType(carInfo.getCarType());
-            carTable.setCarModel(carInfo.getCarModel());
+            LoginTable loginTable = new LoginTable();
+
+            if(carTypeValidation(carInfo.getCarType())){
+                carTable.setCarType(carInfo.getCarType());
+            }else{
+                return "carType should not be null";
+            }
+
+            if(carModelValidation(carInfo.getCarModel())){
+                carTable.setCarModel(carInfo.getCarModel());
+
+            }else{
+                return "carModel should not be null";
+            }
+
+            if(carRegistrationValidation(carInfo.getCarRegistration())){
+                carTable.setCarRegistration(carInfo.getCarRegistration());
+
+            }else{
+                return "‘Car registration number is incorrect";
+            }
+
+            if(carInsuranceValidation(carInfo.getInsurance())){
+                carTable.setInsurance(carInfo.getInsurance());
+
+            }else{
+                return "Car insurance can't be null or empty";
+            }
+
             carTable.setCarSeater(carInfo.getCarSeater());
             carTable.setBaggageCapacity(carInfo.getBaggageCapacity());
-            carTable.setCarRegistration(carInfo.getCarRegistration());
             carTable.setCarACorNonAc(carInfo.getCarACorNonAc());
             carTable.setBasePrice(carInfo.getBasePrice());
             carTable.setYearsOld(carInfo.getYearsOld());
-            carTable.setInsurance(carInfo.getInsurance());
             carTable.setStatus(carInfo.getStatus());
             carTable.setImageUrl(carInfo.getImageUrl());
             carTable.setVendorId(vendorId);
+
+            VendorRegistrationTable vendorRegistrationTable = new VendorRegistrationTable();
+            vendorRegistrationTable.setLoginTable(loginTable);
 
             try {
                 carRepository.save(carTable);
@@ -68,8 +98,40 @@ public class CarService {
                 System.err.println("Error details " + e.getMessage());
             }
         }
-        return "success";
+        return "Saved in Data base";
     }
+
+    public boolean carTypeValidation( String carType){
+        if(!carType.isEmpty() && carType != null){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean carModelValidation( String carModel){
+        if(!carModel.isEmpty() && carModel != null){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean carRegistrationValidation(String carRegistration) {
+        if (!carRegistration.isEmpty() && carRegistration != null && carRegistration.length() == 8
+                && Character.isAlphabetic(carRegistration.charAt(0)) && Character.isAlphabetic(carRegistration.charAt(1))){
+            return true;
+    }
+    return false;
+    }
+
+    public boolean carInsuranceValidation(String carInsurance){
+        if(!carInsurance.isEmpty() && carInsurance != null){
+            return true;
+        }
+
+        return false;
+
+    }
+
 
 
 }

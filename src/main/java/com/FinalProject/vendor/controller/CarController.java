@@ -31,8 +31,8 @@ public class CarController {
     @PostMapping("/save")
 
     public String save(@RequestBody List<CarInformation> carInformation) {
-        this.carService.saveCar(carInformation);
-        return "Success!!!";
+       String outputMessage = this.carService.saveCar(carInformation);
+        return outputMessage;
     }
 
 

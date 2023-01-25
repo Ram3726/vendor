@@ -51,4 +51,7 @@ public class VendorRegistrationTable {
     @Column(name = "status")
     private String status;
 
+    @OneToOne (cascade = CascadeType.ALL) //one to one mapping
+    private LoginTable loginTable;
+
 }
