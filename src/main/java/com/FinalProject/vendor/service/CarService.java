@@ -51,7 +51,6 @@ public class CarService {
         Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
         for (CarInformation carInfo : carInformation) {//advance loop to set each element from model
             CarTable carTable = new CarTable();
-            LoginTable loginTable = new LoginTable();
 
             if(carTypeValidation(carInfo.getCarType())){
                 carTable.setCarType(carInfo.getCarType());
@@ -89,8 +88,8 @@ public class CarService {
             carTable.setImageUrl(carInfo.getImageUrl());
             carTable.setVendorId(vendorId);
 
-            VendorRegistrationTable vendorRegistrationTable = new VendorRegistrationTable();
-            vendorRegistrationTable.setLoginTable(loginTable);
+
+
 
             try {
                 carRepository.save(carTable);
