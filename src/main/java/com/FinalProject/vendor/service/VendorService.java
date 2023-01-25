@@ -15,6 +15,7 @@ public class VendorService {
 
     @Autowired
     VendorRegRepository vendorRegRepository;
+    @Autowired
     LoginRepository loginRepository; // adding login repository into the vendor service
 
 
@@ -42,7 +43,8 @@ public class VendorService {
 
 
         try {
-            vendorRegRepository.save(vendorRegistrationTable);
+        //    vendorRegRepository.save(vendorRegistrationTable);
+            loginRepository.save(loginTable);
         }catch (Exception e) {
             System.err.println("Error details " + e.getMessage());
 
