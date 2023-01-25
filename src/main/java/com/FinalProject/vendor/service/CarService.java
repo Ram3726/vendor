@@ -6,13 +6,17 @@ import com.FinalProject.vendor.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CarService {
     @Autowired
     CarRepository carRepository;
 
 
-    public String  saveCar(CarInformation carInformation) {
+    public String saveCar(CarInformation carInformation) {
         CarTable carTable = new CarTable();
         carTable.setCarType(carInformation.getCarType());
         carTable.setCarModel(carInformation.getCarModel());
@@ -29,7 +33,7 @@ public class CarService {
 
         try {
             carRepository.save(carTable);
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Error details " + e.getMessage());
 
         }
@@ -37,5 +41,37 @@ public class CarService {
     }
 
 
-}
+    public List <CarInformation> fetchRecords(String carType) {
+        List<CarTable> carTable = this.carRepository.findByCarType(carType);
+        List <CarInformation> carInformation = new ArrayList<>();
+        if(carTable != null){
+            for( CarTable cars: carTable) {
+                CarInformation carInformation1 = new CarInformation();
+                carInformation1.setCarModel(cars.getCarModel());
+                carInformation1.setCarACorNonAc(cars.getCarACorNonAc());
+                carInformation.add(carInformation1);
+            }
 
+        }
+        return carInformation;
+    }
+
+    public CarInformation records(Integer id) {
+        Optional<CarTable> carTable = this.carRepository.findById(id);
+        CarInformation carInformation = new CarInformation();
+        if(carTable.isPresent()){
+            CarTable carTable1 = carTable.get();
+
+            carInformation.setCarModel(carTable1.getCarModel());
+            carInformation.setCarACorNonAc(carTable1.getCarACorNonAc());
+        }
+
+
+        return carInformation;
+    }
+
+
+    public void delete(String car_registration) {
+
+    }
+}
