@@ -20,20 +20,31 @@ public class CarController {
 
 
 
-    @GetMapping("/carsDetails")
+  /*  @GetMapping("/carsDetails")
 
     public List<CarInformation> finData(@RequestParam Integer vendorId){// vendor email needed as parameter
         List <CarInformation> carInformation = this.carService.fetchRecords(vendorId);
 
         return carInformation;
     }
-
+*/
     @PostMapping("/save")
 
     public String save(@RequestBody List<CarInformation> carInformation) {
        String outputMessage = this.carService.saveCar(carInformation);
         return outputMessage;
     }
+
+
+    @GetMapping("/carsDetailsByEmail")
+
+    public List<CarInformation> finData(@RequestParam String email){// vendor email needed as parameter
+        List <CarInformation> carInformation = this.carService.carRecords(email);
+
+        return carInformation;
+    }
+
+
 
 
 
