@@ -35,7 +35,7 @@ public class CarTable {
     private String carACorNonAc;
 
     @Column(name = "base_Price")
-    private double basePrice;
+    private float basePrice;
 
     @Column(name = "years_Old")
     private int yearsOld;
@@ -50,3 +50,4 @@ public class CarTable {
     private String imageUrl;
 
 }
+

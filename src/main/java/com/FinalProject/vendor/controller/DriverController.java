@@ -1,7 +1,7 @@
 package com.FinalProject.vendor.controller;
 
-import com.FinalProject.vendor.model.CarInformation;
-import com.FinalProject.vendor.service.CarService;
+import com.FinalProject.vendor.model.DriverModel;
+import com.FinalProject.vendor.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,22 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/carController")
-public class CarController {
+@RequestMapping
+public class DriverController {
     @Autowired
-    private CarService carService;
+    private DriverService driverService;
 
-
-    @PostMapping("/save")
-    public String saveCar(@RequestBody CarInformation carInformation){
-        this.carService.saveCar(carInformation);
-
-
-        return "success";
+    @PostMapping("/display")
+    public String displayDriver(@RequestBody DriverModel driverModel){
+        this.driverService.displayDriver(driverModel);
+        return  "showdriver";
     }
-
-
-
-
-
 }

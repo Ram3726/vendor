@@ -1,0 +1,444 @@
+Car Rental Systems
+Background of the System, Rental car booking application. We must build one web application
+using Spring boot.
+Technology Stack:
+1. Spring Boot (including Exception handling, Authentication, Mapping (OneToOne,
+OneToMany, ManyToOne))
+2. Mysql
+3. Postman
+For Mysql DB, create schema for Vendor as ‘vendor’ and for Client create ‘client’ schema.
+There will 2 parts of the application:
+1. Vendor Application
+Vendor who will be providing car will be responsible to add new car in the application
+list, they can update or delete car from the list. Along with that vendor will be having
+features of adding / updating/ deleting driver information.
+There will be 3 feature that needs to be implemented for Vendor, For all these 3
+features we have to perform add/retrieve/ update /delete operations.
+a. Vendor Registration Add/retrieve / update/delete and login: Where vendor will
+register first them selves and then same entered data, email and password will be
+stored to separate Db which will be used for all the login purpose.
+Sample Json would be used for Vendor registration:
+{
+"loginType": "vendor-login",
+"firstName": "ABC",
+"lastName": "test@123",
+"emailAddress": "abc@test.com",
+"mobileNumber": 9879879898,
+"password": "test_123",
+"confirmPassword": "test_123",
+"licenseNumber": "RTE4Y655ER",
+"BusinessRegistrationNo": "R654654ERT",
+"status": "A"
+ }
+Where we need to include below validation, one
+Once all the validation satisfied then only data will be saved to Database where a
+vendor id will be auto generated and assigned for each new vendor and store
+Corresponding vendor registration table.
+Validation Rules for Vendor registration:
+1. Login type should not be null if null then will not proceed, return with error
+message as 'Login Type cannot be null!!'
+2. Email address should not be empty, and it should contain @. Otherwise return
+error message as 'Email Address is not valid!!'
+3. Mobile number should be of 10 digits. Otherwise return error message as
+'Mobile number is incorrect!!'
+4. password and confirm password fields can’t be empty. If empty, Please return
+error message as 'Password can't be empty!!'
+5. licenseNumber should start with "RTE" and should be of 10 characters. else
+return error message as 'Not a valid license!!'
+6. businessRegistrationNo should be ending with "ERT". else return error message
+'Not a valid business registration no.'
+Once all the above condition successful then the data will go and save to DB.
+Once all the data save to registration DB then store email id and pwd along with
+vendor id to vendor_login database.
+While login request will come the json file would be as below,
+{
+"loginType": "vendor-login",
+"emailAddress": "abc@test.com",
+"passowrd": "encrypted String"
+ }
+• Please write an api to retrieve vendor details info
+• Write update api to update data of vendor profile
+• Write delete api to remove the data based on vendor id.
+b. Adding /retrieving/ updating / removing Car details
+In this feature Vendor will be able to add new car or update information for existing
+car or remove information of the car.
+[{
+"carType": "sedan",
+"carModel": "Etios",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA3234RT",
+"carACorNonAc": "AC",
+"basePrice": "$4",
+ “minKmDriven”:500
+"yearsOld": "3",
+"Insurance": "AB457F",
+"status": "A",
+"imageUrl": "abc.jpg",
+ “vendor_id”:4
+}, {
+"carType": "SUV",
+"carModel": "Innova",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA4234RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+ “minKmDriven”:600
+"yearsOld": "3",
+"Insurance": "URT345A",
+"status": "A",
+"imageUrl": "rtc.jpg",
+ “vendor_id”:4
+}, {
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+ “minKmDriven”:420
+"yearsOld": "3",
+ While adding new car registration number would be the primary key to store car
+information to database. Below the json data for car information
+Along with above information vendor id should be mapped to each car information.
+Each Car object will be having vendor id present which will be derived from Vendor
+registration table. For each login we will be having the email address, corresponding to
+each email address we can find out the vendor id.
+So basically, carRegistrationNumber along with Vendor id can be uniquely identified.
+If any of the below validation fails car information will not be store
+1. carType / carModel should not be null. If either of them is null show error message
+as ‘CarType/CarModel can’t be null’.
+2. carRegistration can’t be null. If so, then return error message as ‘Car registration
+number is incorrect’.
+3. Car registration number should be of 8 character and 1st 2 character will be letter
+and if case any other registration entered then display error message as the car
+‘Registration number is incorrect, please revalidate’.
+4. Insurance should not be null, if in case insurance is null then show error message
+‘Insurance should not be null’
+"Insurance": "GRT345E",
+"status": "A",
+"imageUrl": "tre.jpg",
+ “vendor_id”:4
+}, {
+"carType": "SUV",
+"carModel": "Alcazer",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA6544RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+ “minKmDriven”:700
+"yearsOld": "3",
+"Insurance": "TRE345E",
+"status": "NA",
+"imageUrl": "ioe.jpg",
+ “vendor_id”:4
+}]
+If all the information’s are correct, then store them to database.
+• Write api to retrieve all the car details like (Vendor ID, car model, car registration (PK),
+year, seating capacity, per km rate, min km driven per day) information that has been
+saved.
+• Write Car update as well. For Car update make sure we are updating only few
+information like ‘basePrice’ and ‘minKmDriven’ and status. Other than these 3, vendors
+will not be allowed to update any other information to DB.
+• Write a delete api, where vendor is allowed to delete the information based on the
+vendor id and carRegistration id both.
+c. Adding /retrieving/ updating / removing Driver details
+Driver details needs to be added by the vendor only, find below the sample json that would be
+used to store information of driver,
+[{
+"driverId": "D101",
+"driverName": "Test",
+"address": {
+"city": "Chicago",
+"country": "USA",
+"pin": 132133
+},
+"phoneNo": 1212312312,
+"drivingLicense": "DA65453D",
+ “vendorId”:2
+},
+{
+"driverId": "D102",
+"driverName": "Test",
+"address": {
+"city": "Ontario",
+"country": "Canada",
+"pin": 132534
+},
+"phoneNo": 1786576233,
+"drivingLicense": "DA65453D",
+ “vendorId”:2
+}
+]
+Where driver id will be the primary key and each driver object will be having vendor id present
+which will be derived from Vendor registration table. For each login we will be having the email
+address, corresponding to each email address we can find out the vendor id.
+Below validation must be satisfied,
+1. Driving license should be having 8 character and starts with 2 letter and end with a
+digit and a letter. If in case driving license is not present or invalid, show error
+message as ‘Invalid Driving license!’
+2. Mobile number should be 10 digit else will display error message as ‘Invalid mobile
+number presents!!’
+If above validation is successful, then save database to driver DB.
+• Write retrieve api to fetch the driver details from Database
+• Write update api to update driver information by vendor corresponding each saved
+vendor
+• Write Delete api to delete the driver information based on driver id and the vendor
+id.
+2. Customer Application
+Where this application will be used by the customer. They can choose the trip type from
+the option we have 4 type of trip type such as : ‘local’, ‘oneway’, ‘roundtrip’, ‘airport’.
+There will be 4 feature that needs to be implemented for Customer, For all these 4
+features we must perform add/retrieve/ update /delete operations.
+a. Customer Registration Add/retrieve / update/delete and login: Where vendor will
+register first themselves and then same entered data, email and password will be stored
+to separate Db which will be used for all the login purpose.
+Sample Json would be used for Vendor registration:
+{
+"loginType": "customer-login",
+"firstName": "ABC",
+"lastName": "tuytt",
+"emailAddress": "xyz@test.com",
+"mobileNumber": 908765433,
+"passowrd": "cust_123",
+"confirmPassword": "cust_123",
+ "status": "A"
+ }
+Where we need to include below validation,
+Once all the validation satisfied then only data will be saved to Database where a
+customer id will be auto generated and assigned for each new customer and store
+Corresponding vendor registration table.
+Validation Rules for Vendor registration:
+1. Login type should not be null if null then will not proceed, return with error
+message as 'Login Type cannot be null!!'
+2. Email address should not be empty, and it should contain @. Otherwise return
+error message as 'Email Address is not valid!!'
+3. Mobile number should be of 10 digits. Otherwise return error message as 'Mobile
+number is incorrect!!'
+4. password and confirm password fields can’t be empty. If empty, Please return
+error message as 'Password can't be empty!!'
+Once all the above condition successful then the data will go and save to DB.
+Once all the data save to registration DB then store email id and pwd along with
+vendor id to vendor_login database.
+While login request will come the json file would be as below,
+{
+"loginType": "customer-login",
+"emailAddress": "abc@test.com",
+"passowrd": "encrypted String"
+ }
+• Please write an api to retrieve customer details info
+• Write update api to update data of customer profile
+• Write delete api to remove the data based on customer id.
+b. Customer Dashboard
+Display car details on customer dashboard. Find below the json,
+{
+"local": [{
+"carType": "sedan",
+"carModel": "Etios",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA3234RT",
+"carACorNonAc": "AC",
+"basePrice": "$4",
+"status": "Available",
+"imageUrl": "abc.jpg"
+}, {
+"carType": "SUV",
+"carModel": "Innova",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA4234RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+"status": "Available",
+"imageUrl": "rtc.jpg"
+}, {
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+"status": "Available",
+"imageUrl": "tre.jpg"
+}],
+"oneWay": [{
+"carType": "sedan",
+"carModel": "Etios",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA3234RT",
+"carACorNonAc": "AC",
+"basePrice": "$4",
+"status": "Available",
+"imageUrl": "abc.jpg"
+}, {
+"carType": "SUV",
+"carModel": "Innova",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA4234RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+"status": "Available",
+"imageUrl": "rtc.jpg"
+}, {
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+"status": "Available",
+"imageUrl": "tre.jpg"
+}],
+"roundTrip": [{
+"carType": "sedan",
+"carModel": "Etios",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA3234RT",
+"carACorNonAc": "AC",
+"basePrice": "$4",
+"status": "Available",
+"imageUrl": "abc.jpg"
+}, {
+"carType": "SUV",
+"carModel": "Innova",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA4234RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+"status": "Available",
+"imageUrl": "rtc.jpg"
+}, {
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+"status": "Available",
+"imageUrl": "tre.jpg"
+}],
+"airport": [{
+"carType": "sedan",
+"carModel": "Etios",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA3234RT",
+"carACorNonAc": "AC",
+"basePrice": "$4",
+"status": "Available",
+"imageUrl": "abc.jpg"
+}, {
+"carType": "SUV",
+"carModel": "Innova",
+"carSeater": "5-seater",
+"bagageCapacity": "3-bags",
+"carRegistration": "KA4234RT",
+"carACorNonAc": "AC",
+"basePrice": "$8",
+"status": "Available",
+"imageUrl": "rtc.jpg"
+}, {
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+"status": "Available",
+"imageUrl": "tre.jpg"
+}]
+}
+Here primary key would be trip_id for trip table where all the 4-trip information will be
+stored. Another table would be
+Along with above information customer id should be mapped to each car information.
+Each Car object will be having customer id present which will be derived from Customer
+registration table. For each login we will be having the email address of customer,
+corresponding to each email address we can find out the customer id.
+Where below condition needs to be satisfied before we save the data to database
+i. carType / carModel should not be null. If either of them is null show error message
+as ‘CarType/CarModel can’t be null’.
+ii. carRegistration can’t be null. If so, then return error message as ‘Car registration
+number is incorrect’.
+iii. Car registration number should be of 8 character and 1st 2 character will be letter
+and if case any other registration entered then display error message as the car
+‘Registration number is incorrect, please revalidate’.
+iv. Insurance should not be null, if in case insurance is null then show error message
+‘Insurance should not be null’
+Once above condition successful then save the data to database.
+• Write api to retrieve all the car details like (customer ID, car model, car registration,
+year, seating capacity, per km rate, min km driven per day) information that has been
+saved.
+• Write Car update as well. For Car update make sure we are updating only few
+information like ‘basePrice’ and status.
+• Write a delete api, where customer is allowed to delete the information based on the
+customer id and carRegistration id both.
+c. Customer chosen option (Add / retrieve / update/ delete api):
+While customer choose the appropriate option with the trip then same information
+need to be stored in One table which would be saved as customer chosen trip.
+Json data would be saved like below,
+{
+ "customerId": 1
+"tripType": "local",
+"carType": "Hatchback",
+"carModel": "Swift",
+"carSeater": "4-seater",
+"bagageCapacity": "2-bags",
+"carRegistration": "KA7834RT",
+"carACorNonAc": "nonAC",
+"basePrice": "$3",
+"status": "Available",
+"imageUrl": "tre.jpg"
+ “startDate”:”2023-01-22 45:33:34”,
+ “endDate”:”2023-01-23 45:33:34”
+}
+Here primary key would be auto generated, and the customer id should be there, which
+again will be derived from customer registration table with the logged in customer
+email.
+Below validation needs to apply if all the below condition satisfied then only save to DB
+i. Start date should be less than the end date. If otherwise will display error
+message as ‘Start date should be less than end date, please try again!!’.
+ii. Status of the car should be available, if choose non available car then will display
+message as ‘Only available car can be avail’.
+ If the condition satisfied, then save the data to database.
+• Write api to retrieve all the chosen car details like information that has been saved.
+• Write Car update api as well.
+• Write a delete api, where customer is allowed to delete the information based on the
+customer id and carRegistration id both.
+d. Customer Billing Info (Add / retrieve / update/ delete api):
+Final stage for Customer where final billing information will be calculated as,
+Below the json data would be used to store data,
+{
+"billing": {
+ “customerId”:1
+"carType": "SUV",
+"carModel": "Innova",
+"durationInHours": "30 hrs",
+"totalPrice": "$450",
+"tripType": "local",
+"localtion": "NY"
+}
+}
+Primary key would be auto generated, and customer id should be mapped here as well
+from the customer registration table by using customer logged in email address.
+Below condition needs to be satisfied before saving the billing info to DB.
+i. carType / carModel should not be null. If either of them is null show error
+message as ‘CarType/CarModel can’t be null’.
+ii. duration of Hours should be more than 0, otherwise it will display error message
+as ’Duration of hours should be more than 0!’
+if all the condition satisfies then save the data to billing_info table.
+• Write api to retrieve all the chosen car details like information that has been saved.
+• Write Car update api as well.
+• Write a delete api, where customer is allowed to delete the information based on the
+customer id and carRegistration id both.

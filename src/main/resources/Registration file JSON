@@ -1,0 +1,27 @@
+{
+	"loginType": "vendor-login",
+	"firstName": "ABC",
+	"lastName": "jhkjh",
+	"email": "abc@test.com",
+	"phoneNumber": 9879879898,
+	"password": "test_123",
+	"confirmPassword": "test_123",
+	"licenseNumber": "RTE4Y6575ER",
+	"BusinessRegistrationNo": "R654654ERT",
+	"status": "A"
+}
+
+{
+ "carType": "TUV",
+	"carModel": "Innova",
+	"carSeater": "2-seater",
+	"baggageCapacity": "3-bags",
+	"carRegistration": "KA4234RT",
+	"carACorNonAc": "Non AC",
+	"basePrice": 8,
+	"yearsOld": "3",
+	"insurance": "A",
+	"status": "Available",
+	"imageUrl": "rtc.jpg"
+
+}
