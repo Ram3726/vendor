@@ -14,7 +14,7 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
-    @PostMapping("/display")
+    @PostMapping("/save")
     public String displayDriver(@RequestBody DriverModel driverModel){
         this.driverService.displayDriver(driverModel);
         return  "showdriver";

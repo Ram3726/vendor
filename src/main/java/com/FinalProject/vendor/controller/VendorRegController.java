@@ -3,10 +3,9 @@ package com.FinalProject.vendor.controller;
 import com.FinalProject.vendor.model.VendorRegModel;
 import com.FinalProject.vendor.service.VendorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.Id;
 
 @RestController
 @RequestMapping("/vendorRegController")
@@ -20,7 +19,20 @@ public class VendorRegController {
 
         return  "ShowVendor";
     }
+    @GetMapping("/fetchSaveData")
+    public  VendorRegModel fetchData(@RequestParam String email){
+        VendorRegModel vendorRegModel = this.vendorService.fetchRecords(email);
 
+        return vendorRegModel;
+    }
 
+   /* @PutMapping("/updateEmail")
+    public  VendorRegModel updateEmail(@RequestBody VendorRegModel vendorRegModel) {
+        this.vendorService.updateEmail(vendorRegModel);
 
+        return vendorRegModel;
+
+    }
+
+*/
 }

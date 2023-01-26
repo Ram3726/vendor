@@ -10,6 +10,8 @@ import com.FinalProject.vendor.repository.VendorRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
+
 @Service
 public class VendorService {
 
@@ -53,4 +55,30 @@ public class VendorService {
         return "successful";
     }
 
+    public VendorRegModel fetchRecords(String email) {
+        VendorRegistrationTable vendorRegistrationTable = this.vendorRegRepository.findByEmailId(email);
+        VendorRegModel vendorRegModel = new VendorRegModel();
+        if (vendorRegistrationTable != null) {
+            vendorRegModel.setEmail(vendorRegistrationTable.getEmail());
+            vendorRegModel.setFirstName(vendorRegistrationTable.getFirstName());
+            vendorRegModel.setLastName(vendorRegistrationTable.getLastName());
+            vendorRegModel.setAddress(vendorRegistrationTable.getAddress());
+            vendorRegModel.setPhoneNumber(vendorRegistrationTable.getPhoneNumber());
+            vendorRegModel.setLicenseNumber(vendorRegistrationTable.getLicenseNumber());
+            vendorRegModel.setBusinessRegistrationNo(vendorRegistrationTable.getBusinessRegistrationNo());
+            vendorRegModel.setStatus(vendorRegistrationTable.getStatus());
+
+        }
+        return vendorRegModel;
+
+
+    }
+
+   /*public  UpdateEmail(VendorRegModel vendorRegModel) {
+        VendorRegistrationTable vendorRegistrationTable = this.vendorRegRepository.findByEmail(String email);
+        VendorRegModel vendorRegModel = new VendorRegModel();
+
+        return "email updated successfully";
+*/
+ //   }
 }

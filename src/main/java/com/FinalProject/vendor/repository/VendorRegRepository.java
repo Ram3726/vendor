@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface VendorRegRepository extends CrudRepository<VendorRegistrationTable , Integer>{
-    @Query("Select id from VendorRegistrationTable where email = :email")
+    @Query("Select id from VendorRegistrationTable  where email = :email")
     Integer findByEmail(String email);
 
+    @Query("Select v from VendorRegistrationTable v where v.email = :email")
+VendorRegistrationTable findByEmailId(String email);
 
 }
