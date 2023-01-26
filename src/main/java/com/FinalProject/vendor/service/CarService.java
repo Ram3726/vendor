@@ -48,7 +48,7 @@ public class CarService {
 
 
     public String saveCar(List<CarInformation> carInformation)  {
-        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//vendorID
         for (CarInformation carInfo : carInformation) {//advance loop to set each element from model
             CarTable carTable = new CarTable();
 

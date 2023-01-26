@@ -22,7 +22,7 @@ public class CarController {
 
     @GetMapping("/carsDetails")
 
-    public List<CarInformation> finData(@RequestParam Integer vendorId){
+    public List<CarInformation> finData(@RequestParam Integer vendorId){// vendor email needed as parameter
         List <CarInformation> carInformation = this.carService.fetchRecords(vendorId);
 
         return carInformation;

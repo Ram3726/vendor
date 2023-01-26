@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Table(name = "Car_Info")
 public class CarTable {
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer id;*/
 
 
     @Column(name = "car_Type")
