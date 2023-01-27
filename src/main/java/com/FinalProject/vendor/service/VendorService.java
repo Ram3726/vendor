@@ -34,6 +34,7 @@ public class VendorService {
         vendorRegistrationTable.setPhoneNumber(vendorRegModel.getPhoneNumber());
         vendorRegistrationTable.setPassword(vendorRegModel.getPassword());
         vendorRegistrationTable.setConfirmPassword(vendorRegModel.getConfirmPassword());
+
        // vendorRegistrationTable.setOperatingCity(vendorRegModel.getOperatingCity());
         vendorRegistrationTable.setLicenseNumber(vendorRegModel.getLicenseNumber());
         vendorRegistrationTable.setBusinessRegistrationNo(vendorRegModel.getBusinessRegistrationNo());
