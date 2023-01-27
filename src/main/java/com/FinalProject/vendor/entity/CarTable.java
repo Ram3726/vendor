@@ -49,5 +49,9 @@ public class CarTable {
     @Column(name = "image_Url")
     private String imageUrl;
 
+    @Column(name = "minKmDriven")
+    private int minKmDriven;
 }
+
+
 

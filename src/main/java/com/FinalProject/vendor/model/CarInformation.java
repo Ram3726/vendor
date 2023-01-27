@@ -18,5 +18,6 @@ public class CarInformation {
     private String insurance;
     private String status;
     private String imageUrl;
+    private int minKmDriven;
 
 }
