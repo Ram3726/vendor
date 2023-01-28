@@ -39,8 +39,8 @@ public class CarController {
 
         return carInformation;
     }
-@PutMapping ("UpdateBasePriceminKmDrivenAndStatus/{id}")
-    public String UpdateBasePriceminKmDrivenAndStatus (@PathVariable Integer id, @RequestBody CarInformation carInformation){
+@PutMapping ("UpdateBasePriceMinKmDrivenAndStatus/{id}")
+    public String UpdateBasePriceMinKmDrivenAndStatus (@PathVariable Integer id, @RequestBody CarInformation carInformation){
         String returnMessage = this.carService.updateDetail(id,carInformation);
         return returnMessage;
 }

@@ -12,9 +12,9 @@ import javax.persistence.*;
 @Table(name = "Car_Info")
 public class CarTable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    //@Id
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Integer id
 
     @Column(name = "car_Type")
     private String carType;
@@ -51,6 +51,10 @@ public class CarTable {
 
     @Column(name = "minKmDriven")
     private int minKmDriven;
+
+    @Id
+    @Column(name = "Id" )
+    private int Id;
 }
 
 

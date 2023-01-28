@@ -58,7 +58,7 @@ public class CarService {
     }
 
     public CarInformation records(Integer id) {
-        Optional<CarTable> carTable = CarRepository.findbyId(id);
+        Optional<CarTable> carTable = carRepository.findById(id);
         CarInformation carInformation = new CarInformation();
         if(carTable.isPresent()){
             CarTable carTable1 = carTable.get();
@@ -72,7 +72,7 @@ public class CarService {
     }
 
     public String updateDetail(Integer id, CarInformation carInformation) {
-        CarTable carTable = CarRepository.findbyId(id).get();
+        CarTable carTable = carRepository.findById(id).get();
         carTable.setMinKmDriven((carInformation.getMinKmDriven()));
         carTable.setStatus((carInformation.getStatus()));
         carTable.setBasePrice(carInformation.getBasePrice());
