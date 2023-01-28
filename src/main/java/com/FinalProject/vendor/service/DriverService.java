@@ -1,32 +1,63 @@
 package com.FinalProject.vendor.service;
 
+import com.FinalProject.vendor.entity.AddressEntity;
 import com.FinalProject.vendor.entity.DriverTable;
+import com.FinalProject.vendor.model.Address;
 import com.FinalProject.vendor.model.DriverModel;
 import com.FinalProject.vendor.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 @Service
 public class DriverService {
-    @Autowired
-    DriverRepository driverRepository;
+@Autowired
+DriverRepository driverRepository;
 
-    public String display;
-    public String displayDriver(DriverModel driverModel) {
-        DriverTable driverTable = new DriverTable();
-        driverTable.setDriver_id(driverModel.getDriver_id());
-        driverTable.setName(driverModel.getName());
-        driverTable.setPhone(driverModel.getPhone());
-        driverTable.setAddress(driverModel.getAddress());
-        driverTable.setDriver_licence_number(driverModel.getDriver_licence_number());
-        driverTable.setPhoto(driverModel.getPhoto());
+    public String saveDriver(List<DriverModel> driverModels)  {
+       // Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
+        for (DriverModel driverdetails : driverModels) {//advance loop to set each element from model
+            DriverTable driverTable = new DriverTable();
+            driverTable.setDriverId(driverdetails.getDriverId());
+            driverTable.setDriverName(driverdetails.getDriverName());
+            driverTable.setPhoneNo(driverdetails.getPhoneNo());
+            driverTable.setDrivingLicense(driverdetails.getDrivingLicense());
 
-        try {
-            driverRepository.save(driverTable);
-        }catch (Exception e) {
-            System.err.println("Error details " + e.getMessage());
+
+
+
+            List<Address> addresses = driverdetails.getAddresses();
+            for (Address address : addresses) {
+                AddressEntity addressEntity = new AddressEntity();
+                addressEntity.setCity(address.getCity());
+                addressEntity.setCountry(address.getCountry());
+                addressEntity.setPin(address.getPin());
+                driverTable.getAddresses().add(addressEntity);
+            }
+
+            try {
+                driverRepository.save(driverTable);
+            } catch (Exception e) {
+                System.err.println("Error details " + e.getMessage());
+            }
         }
-        return "successful";
-
+        return "success";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

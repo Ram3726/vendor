@@ -1,7 +1,5 @@
 package com.FinalProject.vendor.service;
 
-import com.FinalProject.vendor.controller.VendorRegController;
-import com.FinalProject.vendor.entity.CarTable;
 import com.FinalProject.vendor.entity.VendorRegistrationTable;
 import com.FinalProject.vendor.model.VendorRegModel;
 import com.FinalProject.vendor.repository.VendorRegRepository;
@@ -39,6 +37,7 @@ public class VendorService {
         }
 
         return "successful";
+
     }
 
 }
