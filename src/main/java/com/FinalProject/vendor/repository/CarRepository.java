@@ -12,7 +12,7 @@ public interface CarRepository extends CrudRepository<CarTable,Integer> {
     @Query("SELECT a FROM CarTable a where a.carType =:carType") //'a' is an alias of CarTable;
     List<CarTable> findByCarType(String carType);
 
-    Optional<CarTable> findbyId(Integer id);
+    Optional<CarTable> findById(Integer id);
 
 }
 
