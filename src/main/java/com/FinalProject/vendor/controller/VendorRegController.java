@@ -15,9 +15,10 @@ public class VendorRegController {
 
     @PostMapping("/save")
     public String saveVendor(@RequestBody VendorRegModel vendorRegModel){
-        this.vendorService.saveVendor(vendorRegModel);
 
-        return  "ShowVendor";
+       String message = this.vendorService.saveVendor(vendorRegModel);
+
+        return  message;
     }
     @GetMapping("/fetchSaveData")
     public  VendorRegModel fetchData(@RequestParam String email){
@@ -26,13 +27,13 @@ public class VendorRegController {
         return vendorRegModel;
     }
 
-   /* @PutMapping("/updateEmail")
-    public  VendorRegModel updateEmail(@RequestBody VendorRegModel vendorRegModel) {
-        this.vendorService.updateEmail(vendorRegModel);
+    @PutMapping("/updateEmailId")
+    public String updateEmailId(@RequestBody VendorRegModel vendorRegModel) {
+        this.vendorService.updateEmailId(vendorRegModel.getEmail());
 
-        return vendorRegModel;
+        return "update Success";
 
     }
 
-*/
+
 }

@@ -16,10 +16,6 @@ public class CarController {
 
 
 
-
-
-
-
     @GetMapping("/carsDetails")
 
     public List<CarInformation> finData(@RequestParam Integer vendorId){
@@ -34,9 +30,6 @@ public class CarController {
         this.carService.saveCar(carInformation);
         return "Success!!!";
     }
-
-
-
 
 
 }

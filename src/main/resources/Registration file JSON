@@ -1,3 +1,5 @@
+UPDATED JSON Vendor-registration:
+
 {
 	"loginType": "vendor-login",
 	"firstName": "RAM",
@@ -5,6 +7,15 @@
 	"email": "abc@test.com",
 	"phoneNumber": 9879871234,
 	"password": "test_123",
+	"role": [
+                {
+                  "roleName": "ADMIN"
+                },
+                {
+                  "roleName": "USER"
+                }
+              ],
+
 	"confirmPassword": "test_123",
 	"licenseNumber": "RTE4Y6575ER",
 	"BusinessRegistrationNo": "R654654ERT",
@@ -15,6 +26,15 @@
 	"email": "bcd@test.com",
 	"phoneNumber": 9879874321,
 	"password": "test_321",
+	"role": [
+                {
+                  "roleName": "ADMIN"
+                },
+                {
+                  "roleName": "USER"
+                }
+              ],
+
 	"confirmPassword": "test_321",
 	"licenseNumber": "RTE4Y6575ER",
 	"BusinessRegistrationNo": "R654654ERT",
@@ -25,23 +45,20 @@
 	"email": "cde@test.com",
 	"phoneNumber": 9879872131,
 	"password": "test_421",
+	"role": [
+            {
+              "roleName": "ADMIN"
+            },
+            {
+              "roleName": "USER"
+            }
+          ],
+
 	"confirmPassword": "test_421",
 	"licenseNumber": "RTE4Y6575ER",
 	"BusinessRegistrationNo": "R654654ERT",
 	"status": "A"
 }
+Vendor login roles jason info
+-----------------------------
 
-{
- "carType": "TUV",
-	"carModel": "Innova",
-	"carSeater": "2-seater",
-	"baggageCapacity": "3-bags",
-	"carRegistration": "KA4234RT",
-	"carACorNonAc": "Non AC",
-	"basePrice": 8,
-	"yearsOld": "3",
-	"insurance": "A",
-	"status": "Available",
-	"imageUrl": "rtc.jpg"
-
-}
