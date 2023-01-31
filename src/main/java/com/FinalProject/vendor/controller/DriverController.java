@@ -5,6 +5,7 @@ import com.FinalProject.vendor.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -15,11 +16,20 @@ public class DriverController {
 
     @Autowired
     private DriverService driverService;
-    @PostMapping("/save")
-    public String save(@RequestBody List<DriverModel> driverModel) {
+
+    @PostMapping("/saveDriverInfo")
+    public String save(@RequestBody List<DriverModel> driverModel) throws ParseException {
         this.driverService.saveDriver(driverModel);
         return "Success!!!";
     }
+}
+
+
+
+
+
+
+    /*
     @PutMapping("/updateDriver")
     public String updateDriver(@RequestBody DriverModel driverModel) {
 
@@ -42,3 +52,4 @@ public class DriverController {
     }
 
 }
+*/

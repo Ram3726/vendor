@@ -4,10 +4,12 @@ import com.FinalProject.vendor.entity.AddressEntity;
 import com.FinalProject.vendor.entity.DriverTable;
 import com.FinalProject.vendor.model.Address;
 import com.FinalProject.vendor.model.DriverModel;
+import com.FinalProject.vendor.repository.AddressRepository;
 import com.FinalProject.vendor.repository.DriverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -15,26 +17,66 @@ import java.util.List;
 public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
+@Autowired
+private AddressRepository addressRepository;
 
-
-    public String saveDriver(List<DriverModel> driverModels) {
-        // Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
-        for (DriverModel driverdetails : driverModels) {//advance loop to set each element from model
+    public String saveDriver(List<DriverModel> driverModel) throws ParseException {
+        for (DriverModel driverDetails : driverModel) {//advance loop to set each element from model
             DriverTable driverTable = new DriverTable();
-            driverTable.setDriverId(driverdetails.getDriverId());
-            driverTable.setDriverName(driverdetails.getDriverName());
-            driverTable.setPhoneNo(driverdetails.getPhoneNo());
-            driverTable.setDrivingLicense(driverdetails.getDrivingLicense());
+            driverTable.setDriverId(driverDetails.getDriverId());
+            driverTable.setDriverName(driverDetails.getDriverName());
+            driverTable.setPhoneNo(driverDetails.getPhoneNo());
+            driverTable.setDrivingLicense(driverDetails.getDrivingLicense());
 
 
-            List<Address> addresses = driverdetails.getAddresses();
+            List<Address> addresses = driverDetails.getAddress();
             for (Address address : addresses) {
                 AddressEntity addressEntity = new AddressEntity();
                 addressEntity.setCity(address.getCity());
                 addressEntity.setCountry(address.getCountry());
                 addressEntity.setPin(address.getPin());
-                driverTable.getAddresses().add(addressEntity);
+                driverTable.setAddressEntity(addressEntity);
             }
+            this.driverRepository.save(driverTable);
+           // this.addressRepository.save(addressEntity);
+
+
+            /*
+
+            public String saveAddressData(List<EmployeeModel> employee) throws ParseException {
+                for (EmployeeModel empModel : employee) {
+                    EmployeeEntity employeeEntity = new EmployeeEntity();
+                    employeeEntity.setFirstName(empModel.getName());
+                    if (empModel.getEmpId() != null && empModel.getEmpId().startsWith("E")) {
+                        employeeEntity.setEmpId(empModel.getEmpId());
+                    }
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/YYYY");
+                    Date dob = simpleDateFormat.parse(empModel.getDob());
+                    employeeEntity.setStudDoB(dob);
+                    List<Address> addresses = empModel.getAddress();
+                    //List<AddressEntity> addressEntities = new ArrayList<>();
+                    for (Address address : addresses) {
+                        AddressEntity addressEntity =  new AddressEntity();
+                        addressEntity.setCity(address.getCity());
+                        addressEntity.setHouseNumber(address.getHouseNumber());
+                        addressEntity.setPinCode(address.getPinCode());
+                        //if we are using Many to one
+                        //addressEntity.setEmployeeEntity(employeeEntity);
+                        employeeEntity.addAddress(addressEntity);
+                        //addressEntities.add(addressEntity);
+                    }
+
+                    //employeeEntity.setAddressList(addressEntities);
+                    this.employeeRepository.save(employeeEntity);
+                }
+                return "success";
+            }*/
+
+
+
+
+
+
 
             try {
                 driverRepository.save(driverTable);
@@ -44,7 +86,8 @@ public class DriverService {
         }
         return "success";
     }
-
+}
+/*
     // Update Logic
     public String updateDriverDetails(DriverModel driverModel
     ) {
@@ -90,7 +133,7 @@ public class DriverService {
 
 
 
-
+*/
 
 
 

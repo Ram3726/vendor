@@ -19,14 +19,9 @@ public class DriverModel {
 
     private String vendorId;
 
-    private List<Address> addresses;
+    private List<Address> address;
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
+
 
 
 

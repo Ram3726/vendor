@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,13 +26,18 @@ public class DriverTable {
     @Column(name = "driver_licence_number")
     private String drivingLicense;
 
-    @OneToMany (cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+    @OneToOne (cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private AddressEntity addressEntity;
 
 
-    // other fields and methods
+   // @OneToMany (cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+   // private AddressEntity addressEntity;
 
-    private List<AddressEntity> addresses;
+
+
+
+   /* private List<AddressEntity> addresses;
 
     public List<AddressEntity> getAddresses() {
         return addresses;
@@ -45,6 +48,6 @@ public class DriverTable {
             this.addresses = new ArrayList<>();
         }
         this.addresses.add(address);
-    }
+    }*/
 
 }

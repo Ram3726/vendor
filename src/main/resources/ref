@@ -1,0 +1,39 @@
+ //passing json with address object
+    @PostMapping("/addressData")
+    public String addressData(@RequestBody List<EmployeeModel> employeeModels) throws ParseException {
+        this.employeeService.saveAddressData(employeeModels);
+        return "Success!!!";
+    }
+
+
+
+
+
+    public String saveAddressData(List<EmployeeModel> employee) throws ParseException {
+        for (EmployeeModel empModel : employee) {
+            EmployeeEntity employeeEntity = new EmployeeEntity();
+            employeeEntity.setFirstName(empModel.getName());
+            if (empModel.getEmpId() != null && empModel.getEmpId().startsWith("E")) {
+                employeeEntity.setEmpId(empModel.getEmpId());
+            }
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/YYYY");
+            Date dob = simpleDateFormat.parse(empModel.getDob());
+            employeeEntity.setStudDoB(dob);
+            List<Address> addresses = empModel.getAddress();
+            //List<AddressEntity> addressEntities = new ArrayList<>();
+            for (Address address : addresses) {
+                AddressEntity addressEntity =  new AddressEntity();
+                addressEntity.setCity(address.getCity());
+                addressEntity.setHouseNumber(address.getHouseNumber());
+                addressEntity.setPinCode(address.getPinCode());
+                //if we are using Many to one
+                //addressEntity.setEmployeeEntity(employeeEntity);
+                employeeEntity.addAddress(addressEntity);
+                //addressEntities.add(addressEntity);
+            }
+
+            //employeeEntity.setAddressList(addressEntities);
+            this.employeeRepository.save(employeeEntity);
+        }
+        return "success";
+    }
