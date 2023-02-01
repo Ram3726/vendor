@@ -1,12 +1,12 @@
-UPDATED JSON Vendor-registration:
+
 
 {
 	"loginType": "vendor-login",
 	"firstName": "RAM",
 	"lastName": "Boss",
 	"email": "abc@test.com",
-	"phoneNumber": 9879871234,
-	"password": "test_123",
+	"phoneNumber": "9879871234",
+	"password": "Test_123",
 	"role": [
                 {
                   "roleName": "ADMIN"
@@ -16,49 +16,8 @@ UPDATED JSON Vendor-registration:
                 }
               ],
 
-	"confirmPassword": "test_123",
-	"licenseNumber": "RTE4Y6575ER",
-	"BusinessRegistrationNo": "R654654ERT",
+	"confirmPassword": "Test_123",
+	"licenseNumber": "RTE4Y655ER",
+	"businessRegistrationNo": "R654654ERT",
 	"status": "A"
 }
-{   "firstName": "Shayam",
-	"lastName": "Dhillon",
-	"email": "bcd@test.com",
-	"phoneNumber": 9879874321,
-	"password": "test_321",
-	"role": [
-                {
-                  "roleName": "ADMIN"
-                },
-                {
-                  "roleName": "USER"
-                }
-              ],
-
-	"confirmPassword": "test_321",
-	"licenseNumber": "RTE4Y6575ER",
-	"BusinessRegistrationNo": "R654654ERT",
-	"status": "A"
-}
-{   "firstName": "Harry",
-	"lastName": "Pandit",
-	"email": "cde@test.com",
-	"phoneNumber": 9879872131,
-	"password": "test_421",
-	"role": [
-            {
-              "roleName": "ADMIN"
-            },
-            {
-              "roleName": "USER"
-            }
-          ],
-
-	"confirmPassword": "test_421",
-	"licenseNumber": "RTE4Y6575ER",
-	"BusinessRegistrationNo": "R654654ERT",
-	"status": "A"
-}
-Vendor login roles jason info
------------------------------
-

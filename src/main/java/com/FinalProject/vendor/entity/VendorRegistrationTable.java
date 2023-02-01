@@ -13,7 +13,6 @@ public class VendorRegistrationTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "vendor_Id")
     private Integer id;
 
     @Column(name = "first_Name")
@@ -40,25 +39,18 @@ public class VendorRegistrationTable {
     @Column(name = "confirm_Password")
     private String confirmPassword;
 
-    //@Column(name = "operating_City")
-    //private String operatingCity;
-
     @Column(name = "license_Number")
     private String licenseNumber;
 
     @Column(name = "Business_Registration_No")
-    private String BusinessRegistrationNo;
+    private String businessRegistrationNo;
 
     @Column(name = "status")
     private String status;
 
-    //@OneToOne (cascade = CascadeType.ALL) //one to one mapping
-      //private VendorLoginTable vendorLoginTable;
-
    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true) // mapping vendorReg table with LoginTable
-    @JoinColumn(name = "vendor_role_id")
-    private List<VendorRolesTable> rolesList;
-    private VendorLoginTable loginTable;  //( Either of one way is good to mapping for login and VendReg table)
+    @JoinColumn(name = "login_id")
+   private VendorLoginTable vendorLoginTable;  //( Either of one way is good to mapping for login and VendReg table)
 
 }
 
