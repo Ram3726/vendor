@@ -3,7 +3,6 @@ package com.FinalProject.vendor.service;
 import com.FinalProject.vendor.entity.CarTable;
 import com.FinalProject.vendor.entity.LoginTable;
 import com.FinalProject.vendor.entity.VendorRegistrationTable;
-import com.FinalProject.vendor.exception.CarNotFoundException;
 import com.FinalProject.vendor.model.CarInformation;
 import com.FinalProject.vendor.repository.CarRepository;
 import com.FinalProject.vendor.repository.VendorRegRepository;
@@ -74,26 +73,23 @@ public class CarService {
                     carRepository.save(carTable1);
                 }
 
-
                 }
             return "car Updated";
         }
  //Working on  Deleting car
 
 
-        public List<CarInformation> deleteCar(String email){
+        public String deleteAll(List <String> carRegistration){
             Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
-            List <CarInformation> carInformation = new ArrayList<>();// Array list to store data
 
-            List<String> carRegistrationDetails = new ArrayList<>();// to store carRegistrationDetails and  list created
-
-            for(CarInformation carInformation1 : carInformation){// advance loop to iterate car information
-                carRegistrationDetails.add(carInformation1.getCarRegistration());// carRegistration added into List CarRegistrationDetails
+            try {
+                carRepository.deleteAllByVendorIdAndCarRegistrationIn(vendorId, carRegistration);
+            }catch (Exception e){
+                System.err.println(e.getMessage());
             }
-            List<CarTable> carTable = this.carRepository.findByVendorIdAndCarRegistrationIn(vendorId,carRegistrationDetails);// car table list based on vendorId and CarRegistration
 
 
-            return carInformation;
+            return "Deleted";
         }
 
 
@@ -101,7 +97,7 @@ public class CarService {
 
 //save car details
     public String saveCar(List<CarInformation> carInformation)  { //method to save car
-        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//to find vendor id from email to save in car table
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//to find vendor id from email
         for (CarInformation carInfo : carInformation) {//advance loop to set each element from model
             CarTable carTable = new CarTable();
 

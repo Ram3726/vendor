@@ -6,12 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DriverModel {
-    private String driver_id;
+    private String driverId;
     private String name;
     private String phone;
-    private String address;
-    private String driver_licence_number;
+    private String driverLicenceNumber;
     private String photo;
+
+    private DriverAddress driverAddress;
 
 
 }

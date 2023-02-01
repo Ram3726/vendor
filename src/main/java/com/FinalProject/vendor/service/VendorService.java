@@ -25,13 +25,10 @@ public class VendorService {
         LoginTable loginTable = new LoginTable();
         vendorRegistrationTable.setFirstName(vendorRegModel.getFirstName());
         vendorRegistrationTable.setLastName(vendorRegModel.getLastName());
-        //vendorRegistrationTable.setCompanyName(vendorRegModel.getCompanyName());
-        vendorRegistrationTable.setAddress(vendorRegModel.getAddress());
         vendorRegistrationTable.setEmail(vendorRegModel.getEmail());
         vendorRegistrationTable.setPhoneNumber(vendorRegModel.getPhoneNumber());
         vendorRegistrationTable.setPassword(vendorRegModel.getPassword());
         vendorRegistrationTable.setConfirmPassword(vendorRegModel.getConfirmPassword());
-       // vendorRegistrationTable.setOperatingCity(vendorRegModel.getOperatingCity());
         vendorRegistrationTable.setLicenseNumber(vendorRegModel.getLicenseNumber());
         vendorRegistrationTable.setBusinessRegistrationNo(vendorRegModel.getBusinessRegistrationNo());
         vendorRegistrationTable.setStatus(vendorRegModel.getStatus());
@@ -39,12 +36,12 @@ public class VendorService {
         loginTable.setLoginPassword(vendorRegistrationTable.getPassword());
         loginTable.setLoginEmail(vendorRegistrationTable.getEmail());
 
-        loginTable.setVendorRegistrationTable(vendorRegistrationTable);
+        //loginTable.setVendorRegistrationTable(vendorRegistrationTable);
 
-       // vendorRegistrationTable.setLoginTable(loginTable);
+        vendorRegistrationTable.setLoginTable(loginTable);
         try {
-            //vendorRegRepository.save(vendorRegistrationTable);
-            loginRepository.save(loginTable);
+            vendorRegRepository.save(vendorRegistrationTable);
+           // loginRepository.save(loginTable);
 
         }catch (Exception e) {
             System.err.println("Error details " + e.getMessage());

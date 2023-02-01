@@ -12,6 +12,4 @@ public interface VendorRegRepository extends CrudRepository<VendorRegistrationTa
 
 
 
-
-
 }

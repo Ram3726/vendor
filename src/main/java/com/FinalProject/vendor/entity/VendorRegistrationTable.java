@@ -12,7 +12,6 @@ public class VendorRegistrationTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "vendor_Id")
     private Integer id;
 
     @Column(name = "first_Name")
@@ -46,12 +45,12 @@ public class VendorRegistrationTable {
     private String licenseNumber;
 
     @Column(name = "Business_Registration_No")
-    private String BusinessRegistrationNo;
+    private String businessRegistrationNo;
 
     @Column(name = "status")
     private String status;
 
-    //@OneToOne (cascade = CascadeType.ALL) //one to one mapping
-    //private LoginTable loginTable;
+    @OneToOne (cascade = CascadeType.ALL) //one to one mapping
+    private LoginTable loginTable;
 
 }

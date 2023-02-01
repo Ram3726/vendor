@@ -1,6 +1,7 @@
 package com.FinalProject.vendor.controller;
 
 import com.FinalProject.vendor.model.CarInformation;
+import com.FinalProject.vendor.model.DeleteCar;
 import com.FinalProject.vendor.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +41,9 @@ public class CarController {
     }
 
     @DeleteMapping("/delete")
-    public List<CarInformation> delete(@PathVariable String email){
+    public String delete(@RequestBody DeleteCar deleteCar){
 
-        List<CarInformation> carInformation = this.carService.deleteCar(email);
+        String carInformation = this.carService.deleteAll(deleteCar.getCarRegistrationToBeDeleted());
 
         return carInformation;
 

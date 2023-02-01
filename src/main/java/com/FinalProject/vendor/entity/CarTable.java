@@ -31,6 +31,7 @@ public class CarTable {
     @Column(name = "baggage_Capacity")
     private String baggageCapacity;
 
+//for composite primary key
     @Id
     @Column(name = "car_Registration")
     private String carRegistration;
@@ -53,6 +54,7 @@ public class CarTable {
     @Column(name = "image_Url")
     private String imageUrl;
 
+    //for composite primary key
     @Id
     @Column(name = "vendor_Id")
     private  Integer vendorId;

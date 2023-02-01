@@ -20,8 +20,8 @@ public class LoginTable {
     @Column(name = "login_password")
     private String loginPassword;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private VendorRegistrationTable vendorRegistrationTable;//mapping vendorReg table
+   // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //private VendorRegistrationTable vendorRegistrationTable;//mapping vendorReg table
 
 
 

@@ -15,7 +15,7 @@ public class DriverTable {
     private Integer id;
 
     @Column(name = "driver_id")
-    private String driver_id;
+    private String driverId;
 
     @Column(name = "name")
     private String name;
@@ -23,13 +23,16 @@ public class DriverTable {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "address")
-    private String address;
-
     @Column(name = "driver_licence_number")
-    private String driver_licence_number;
+    private String driverLicenceNumber;
 
     @Column(name = "photo")
     private String photo;
+
+    @Column(name = "vendor_Id")
+    private  Integer vendorId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private DriverAddressTable driverAddressTable;
 
 }

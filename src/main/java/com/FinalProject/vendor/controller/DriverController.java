@@ -8,15 +8,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping
+@RequestMapping("/driverController")
 public class DriverController {
     @Autowired
     private DriverService driverService;
 
-    @PostMapping("/display")
-    public String displayDriver(@RequestBody DriverModel driverModel){
-        this.driverService.displayDriver(driverModel);
-        return  "showdriver";
+    @PostMapping("/saveDriver")
+    public String saveDriver(@RequestBody DriverModel driverModel){
+       this.driverService.saveDriverInfo(driverModel);
+        return  "Driver Details Saved";
     }
 }
