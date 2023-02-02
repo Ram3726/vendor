@@ -1,12 +1,11 @@
 package com.FinalProject.vendor.controller;
 
+import com.FinalProject.vendor.model.DeleteCar;
+import com.FinalProject.vendor.model.DeleteDriver;
 import com.FinalProject.vendor.model.DriverModel;
 import com.FinalProject.vendor.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +17,40 @@ public class DriverController {
 
     @PostMapping("/saveDriver")
     public String saveDriver(@RequestBody DriverModel driverModel){
-       this.driverService.saveDriverInfo(driverModel);
-        return  "Driver Details Saved";
+       String msg =this.driverService.saveDriverInfo(driverModel);
+        return  msg;
     }
+
+    @GetMapping("/driverDetails")
+    public List<DriverModel>  findDriver(@RequestParam String email){
+
+        List<DriverModel> driverModels = this.driverService.findDriverInfo(email);
+
+        return driverModels;
+    }
+
+
+
+   /* @DeleteMapping("/delete")
+    public String delete(@RequestParam String license){
+
+        String msg = this.driverService.delete(license);
+
+        return msg;
+
+    }*/
+
+
+
+
+    @DeleteMapping("/delete")
+    public String delete(@RequestBody DeleteDriver deleteDriver){
+
+        String driverInformation = this.driverService.deleteAll(deleteDriver.getDriverLicenseToBeDeleted());
+
+        return driverInformation;
+
+    }
+
+
 }
