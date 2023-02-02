@@ -27,5 +27,4 @@ public interface CarRepository extends CrudRepository<CarTable, Integer> {
 
 
 
-
 }
