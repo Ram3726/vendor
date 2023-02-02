@@ -168,31 +168,74 @@ public class VendorService {
         return false;
     }
 
-    public VendorRegModel updateVendorDetail(String email) {
-        VendorRegistrationTable vendorRegistrationTable = this.vendorRegRepository.findByVendorEmail(email);
-        VendorRegModel vendorRegModel = new VendorRegModel();
-        if (vendorRegistrationTable != null) {
-            vendorRegModel.setEmail(vendorRegistrationTable.getEmail());
-            vendorRegModel.setFirstName(vendorRegistrationTable.getFirstName());
-            vendorRegModel.setLastName(vendorRegistrationTable.getLastName());
-            vendorRegModel.setAddress(vendorRegistrationTable.getAddress());
-            vendorRegModel.setPhoneNumber(vendorRegistrationTable.getPhoneNumber());
-            vendorRegModel.setLicenseNumber(vendorRegistrationTable.getLicenseNumber());
-            vendorRegModel.setBusinessRegistrationNo(vendorRegistrationTable.getBusinessRegistrationNo());
-            vendorRegModel.setStatus(vendorRegistrationTable.getStatus());
+    public String updateVendorDetail(VendorRegModel vendorRegModel) {
+        VendorRegistrationTable vendorRegistrationTable = vendorRegRepository.findByVendorEmail(vendorRegModel.getEmail());
+        String encryptedPwd = "";
+        encryptedPwd = this.bCryptPasswordEncoder.encode(vendorRegModel.getPassword());
+        System.out.println("Encrypted PWD: " + encryptedPwd);
+        if (vendorRegistrationTable == null) {
+            return "Error: Customer not found.";
+        }
+        vendorRegistrationTable.setLoginType(vendorRegModel.getLoginType());
+        vendorRegistrationTable.setFirstName(vendorRegModel.getFirstName());
+        vendorRegistrationTable.setLastName(vendorRegModel.getLastName());
+        vendorRegistrationTable.setAddress(vendorRegModel.getAddress());
+
+        if (vendorEmailValidation(vendorRegModel.getEmail())) {
+            vendorRegistrationTable.setEmail(vendorRegModel.getEmail());
+        } else {
+            return "Email Address is not valid!!";
+        }
+
+        if (vendorPhoneNumberValidation(vendorRegModel.getPhoneNumber())) {
+            vendorRegistrationTable.setPhoneNumber(vendorRegModel.getPhoneNumber());
+
+        } else {
+            return "Mobile number is incorrect!!";
+        }
+
+        if (vendorPasswordValidation(vendorRegModel.getPassword(), vendorRegModel.getConfirmPassword())) {
+
+            vendorRegistrationTable.setPassword(encryptedPwd);
+            vendorRegistrationTable.setConfirmPassword(encryptedPwd);
+
+        } else {
+            return "Password is not valid!!";
+        }
+
+        if (licenseNumberValidation(vendorRegModel.getLicenseNumber())) {
+            vendorRegistrationTable.setLicenseNumber(vendorRegModel.getLicenseNumber());
+        } else {
+            return "Not a valid license!!";
+        }
+
+        if (businessRegistrationNoValidation(vendorRegModel.getBusinessRegistrationNo())) {
+            vendorRegistrationTable.setBusinessRegistrationNo(vendorRegModel.getBusinessRegistrationNo());
+
+        } else {
+            return "Not a valid business registration no.";
+        }
+        vendorRegistrationTable.setStatus(vendorRegModel.getStatus());
+
+
+        try {
+
+            vendorRegRepository.save(vendorRegistrationTable);
+        } catch (Exception e) {
+            System.err.println("Error details " + e.getMessage());
 
         }
-        return vendorRegModel;
+        return "Vendor details updated";
     }
 
-    public String deleteVendorInfo(Integer id) {
+   /* public String deleteVendorInfo(Integer id) {
         try {
             vendorRegRepository.deleteById(id);
         } catch(Exception e) {
             System.err.println("Error Details ::"+e.getMessage());
         }
         return "Success";
-    }
+    }*/
 
 
 }

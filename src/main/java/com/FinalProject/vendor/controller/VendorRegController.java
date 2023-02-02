@@ -22,6 +22,9 @@ public class VendorRegController {
     @Autowired
     private VendorRegRepository vendorRegRepository;
 
+    @Autowired
+    private VendorRoleRepository vendorRoleRepository;
+
 
 
     @PostMapping("/save") // SAVING
@@ -38,15 +41,16 @@ public class VendorRegController {
 
     @PutMapping("/update")  // Updating
     public String updateVendorDetail(@RequestBody VendorRegModel vendorRegModel) {
-        this.vendorService.updateVendorDetail(updateVendorDetail(vendorRegModel));
+        this.vendorService.updateVendorDetail(vendorRegModel);
 
         return "VendorUpdated ";
 
     }
 
     @DeleteMapping("/delete")  // Deleting
-    public String deleteVendorInfo(@RequestParam Integer vendID) {
-        this.vendorService.deleteVendorInfo(vendID);
+    public String deleteVendorInfo(@RequestParam Integer vendId) {
+        this.vendorRoleRepository.deleteByVendorID(vendId);
+        this.vendorRegRepository.deleteById(vendId);
         return "delete Successful !!";
     }
 
