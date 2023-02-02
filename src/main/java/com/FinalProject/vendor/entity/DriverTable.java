@@ -32,7 +32,7 @@ public class DriverTable {
     @Column(name = "vendor_Id")
     private  Integer vendorId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private DriverAddressTable driverAddressTable;
 
 }
