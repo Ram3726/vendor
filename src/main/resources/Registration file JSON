@@ -1,0 +1,23 @@
+
+
+{
+	"loginType": "vendor-login",
+	"firstName": "RAM",
+	"lastName": "Boss",
+	"email": "abc@test.com",
+	"phoneNumber": "9879871234",
+	"password": "Test_123",
+	"role": [
+                {
+                  "roleName": "ADMIN"
+                },
+                {
+                  "roleName": "USER"
+                }
+              ],
+
+	"confirmPassword": "Test_123",
+	"licenseNumber": "RTE4Y655ER",
+	"businessRegistrationNo": "R654654ERT",
+	"status": "A"
+}
