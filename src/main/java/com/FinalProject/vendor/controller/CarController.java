@@ -1,11 +1,13 @@
 package com.FinalProject.vendor.controller;
 
-import com.FinalProject.vendor.entity.CarTable;
 import com.FinalProject.vendor.model.CarInformation;
+import com.FinalProject.vendor.model.DeleteCar;
 import com.FinalProject.vendor.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostUpdate;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -16,44 +18,42 @@ public class CarController {
 
 
     @PostMapping("/save")
-    public String saveCar(@RequestBody CarInformation carInformation){
-        this.carService.saveCar(carInformation);
 
-
-        return "success";
+    public String save(@RequestBody List<CarInformation> carInformation) {
+       String outputMessage = this.carService.saveCar(carInformation);
+        return outputMessage;
     }
 
 
+    @GetMapping("/carsDetailsByEmail") //fetch by vendor email
 
-    @GetMapping("/carsDetails") //fetch by vendor email
-    public List<CarInformation> finData(@RequestParam String carType){
-       List <CarInformation> carInformation = this.carService.fetchRecords(carType);
-
-    return carInformation;
-    }
-
-    @GetMapping("/carsById")
-
-    public CarInformation findById(@RequestParam Integer id){
-        CarInformation carInformation = this.carService.records(id);
+    public List<CarInformation> finData(@RequestParam String email){// vendor email needed as parameter
+        List <CarInformation> carInformation = this.carService.fetchCarRecords(email);
 
         return carInformation;
     }
-@PutMapping ("UpdateBasePriceMinKmDrivenAndStatus/{id}")
-    public String UpdateBasePriceMinKmDrivenAndStatus (@PathVariable Integer id, @RequestBody CarInformation carInformation){
-        String returnMessage = this.carService.updateDetail(id,carInformation);
-        return returnMessage;
-}
+
+
+    @PutMapping("/update")//update records in car Table
+    public String update(@RequestBody List<CarInformation> carInformation) {// list of car information
+        String updateMessage = this.carService.updateCar(carInformation);//updateCar method created for update
+        return updateMessage;
+    }
+
+    @DeleteMapping("/delete")
+    public String delete(@RequestBody DeleteCar deleteCar){
+
+        String carInformation = this.carService.deleteAll(deleteCar.getCarRegistrationToBeDeleted());
+
+        return carInformation;
+
+    }
+
+
+
+
 
 
 
 
 }
-
-
-
-
-
-
-
-

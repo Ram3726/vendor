@@ -1,20 +1,23 @@
 package com.FinalProject.vendor.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
-
 @Entity
+@IdClass(CarRegistrationPkId.class)
 @Table(name = "Car_Info")
 public class CarTable {
 
-    //@Id
-  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Integer id
+   /* @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;*/
+
 
     @Column(name = "car_Type")
     private String carType;
@@ -28,6 +31,8 @@ public class CarTable {
     @Column(name = "baggage_Capacity")
     private String baggageCapacity;
 
+//for composite primary key
+    @Id
     @Column(name = "car_Registration")
     private String carRegistration;
 
@@ -35,7 +40,7 @@ public class CarTable {
     private String carACorNonAc;
 
     @Column(name = "base_Price")
-    private float basePrice;
+    private double basePrice;
 
     @Column(name = "years_Old")
     private int yearsOld;
@@ -49,13 +54,10 @@ public class CarTable {
     @Column(name = "image_Url")
     private String imageUrl;
 
-    @Column(name = "minKmDriven")
-    private int minKmDriven;
-
+    //for composite primary key
     @Id
-    @Column(name = "Id" )
-    private int Id;
+    @Column(name = "vendor_Id")
+    private  Integer vendorId;
+
 }
-
-
 
