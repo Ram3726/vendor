@@ -24,8 +24,8 @@ public class CarController {
     }
 
 
-    @GetMapping("/carsDetails")
 
+    @GetMapping("/carsDetails") //fetch by vendor email
     public List<CarInformation> finData(@RequestParam String carType){
        List <CarInformation> carInformation = this.carService.fetchRecords(carType);
 

@@ -53,7 +53,6 @@ public class CarService {
                 carInformation.add(carInformation1);
             }
 
-        }
         return carInformation;
     }
 
