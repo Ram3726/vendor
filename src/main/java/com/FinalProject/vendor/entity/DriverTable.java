@@ -18,36 +18,21 @@ public class DriverTable {
     private String driverId;
 
     @Column(name = "name")
-    private String driverName;
+    private String name;
 
     @Column(name = "phone")
-    private String phoneNo;
+    private String phone;
 
     @Column(name = "driver_licence_number")
-    private String drivingLicense;
+    private String driverLicenceNumber;
 
+    @Column(name = "photo")
+    private String photo;
 
-    @OneToOne (cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private AddressEntity addressEntity;
+    @Column(name = "vendor_Id")
+    private  Integer vendorId;
 
-
-   // @OneToMany (cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   // private AddressEntity addressEntity;
-
-
-
-
-   /* private List<AddressEntity> addresses;
-
-    public List<AddressEntity> getAddresses() {
-        return addresses;
-    }
-
-    public void addAddress(AddressEntity address) {
-        if (this.addresses == null) {
-            this.addresses = new ArrayList<>();
-        }
-        this.addresses.add(address);
-    }*/
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private DriverAddressTable driverAddressTable;
 
 }

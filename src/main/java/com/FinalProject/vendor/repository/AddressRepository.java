@@ -1,9 +1,10 @@
 package com.FinalProject.vendor.repository;
 
-import com.FinalProject.vendor.entity.AddressEntity;
+import com.FinalProject.vendor.entity.DriverAddressTable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface AddressRepository extends JpaRepository <AddressEntity,Integer> {
+import java.util.Optional;
+
+public interface AddressRepository extends JpaRepository<DriverAddressTable, Integer> {
+
 }

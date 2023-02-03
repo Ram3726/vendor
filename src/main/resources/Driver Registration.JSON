@@ -1,0 +1,12 @@
+{
+  "driverId": "D102",
+  "name": "Test",
+  "phone": "1786576233",
+  "driverLicenceNumber": "DA65453D",
+  "photo": "abc.png",
+  "driverAddress": {
+    "city": "Ontario",
+    "country": "Canada",
+    "pin": "132534"
+  }
+}

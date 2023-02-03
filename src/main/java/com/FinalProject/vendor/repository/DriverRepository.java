@@ -1,15 +1,24 @@
 package com.FinalProject.vendor.repository;
 
+import com.FinalProject.vendor.entity.CarTable;
 import com.FinalProject.vendor.entity.DriverTable;
+import com.FinalProject.vendor.entity.VendorRegistrationTable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+import java.util.List;
+
 public interface DriverRepository extends JpaRepository<DriverTable, Integer> {
 
-   // @Query("Select p from DriverTable p where p.drivingLicense = :drivingLicense")
-   // DriverTable findBylicense(String drivingLicense);
+    List<DriverTable> findByVendorId(Integer vendorId);// for fetching records
 
 
-
+    @Query("Select id from DriverTable where vendorId=:vId AND driverLicenceNumber in (:driverLicense)")
+    List<Integer> findByVendorIdAndDriverLicenceNumberIn(Integer vId, List<String> driverLicense);
+    @Transactional// Spring transactional required at DML query
+    @Modifying
+    void deleteAllByIdIn(List<Integer> id);
 }

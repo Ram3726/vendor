@@ -3,7 +3,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,7 +13,6 @@ public class VendorRegistrationTable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "vendor_Id")
     private Integer id;
 
     @Column(name = "first_Name")
@@ -22,8 +21,8 @@ public class VendorRegistrationTable {
     @Column(name = "last_Name")
     private String lastName;
 
-    //@Column(name = "company_Name")
-    // private String companyName;
+    @Column(name = "login_type")
+    private String loginType;
 
     @Column(name = "address")
     private String address;
@@ -40,16 +39,18 @@ public class VendorRegistrationTable {
     @Column(name = "confirm_Password")
     private String confirmPassword;
 
-    //@Column(name = "operating_City")
-    //private String operatingCity;
-
     @Column(name = "license_Number")
     private String licenseNumber;
 
     @Column(name = "Business_Registration_No")
-    private String BusinessRegistrationNo;
+    private String businessRegistrationNo;
 
     @Column(name = "status")
     private String status;
 
+   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true) // mapping vendorReg table with LoginTable
+    @JoinColumn(name = "login_id")
+   private VendorLoginTable vendorLoginTable;  //( Either of one way is good to mapping for login and VendReg table)
+
 }
+

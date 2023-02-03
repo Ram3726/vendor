@@ -1,139 +1,141 @@
 package com.FinalProject.vendor.service;
 
-import com.FinalProject.vendor.entity.AddressEntity;
+import com.FinalProject.vendor.entity.DriverAddressTable;
 import com.FinalProject.vendor.entity.DriverTable;
-import com.FinalProject.vendor.model.Address;
+import com.FinalProject.vendor.model.DriverAddress;
 import com.FinalProject.vendor.model.DriverModel;
 import com.FinalProject.vendor.repository.AddressRepository;
 import com.FinalProject.vendor.repository.DriverRepository;
+import com.FinalProject.vendor.repository.VendorRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class DriverService {
     @Autowired
-    private DriverRepository driverRepository;
-@Autowired
-private AddressRepository addressRepository;
+    DriverRepository driverRepository;
 
-    public String saveDriver(List<DriverModel> driverModel) throws ParseException {
-        for (DriverModel driverDetails : driverModel) {//advance loop to set each element from model
-            DriverTable driverTable = new DriverTable();
-            driverTable.setDriverId(driverDetails.getDriverId());
-            driverTable.setDriverName(driverDetails.getDriverName());
-            driverTable.setPhoneNo(driverDetails.getPhoneNo());
-            driverTable.setDrivingLicense(driverDetails.getDrivingLicense());
+    @Autowired
+    private AddressRepository addressRepository;
 
+    @Autowired
+    private VendorRegRepository vendorRegRepository;
 
-            List<Address> addresses = driverDetails.getAddress();
-            for (Address address : addresses) {
-                AddressEntity addressEntity = new AddressEntity();
-                addressEntity.setCity(address.getCity());
-                addressEntity.setCountry(address.getCountry());
-                addressEntity.setPin(address.getPin());
-                driverTable.setAddressEntity(addressEntity);
-            }
-            this.driverRepository.save(driverTable);
-           // this.addressRepository.save(addressEntity);
+    public String display;
 
+    public String saveDriverInfo(DriverModel driverModel) {
 
-            /*
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//to find vendor id from email
 
-            public String saveAddressData(List<EmployeeModel> employee) throws ParseException {
-                for (EmployeeModel empModel : employee) {
-                    EmployeeEntity employeeEntity = new EmployeeEntity();
-                    employeeEntity.setFirstName(empModel.getName());
-                    if (empModel.getEmpId() != null && empModel.getEmpId().startsWith("E")) {
-                        employeeEntity.setEmpId(empModel.getEmpId());
-                    }
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/YYYY");
-                    Date dob = simpleDateFormat.parse(empModel.getDob());
-                    employeeEntity.setStudDoB(dob);
-                    List<Address> addresses = empModel.getAddress();
-                    //List<AddressEntity> addressEntities = new ArrayList<>();
-                    for (Address address : addresses) {
-                        AddressEntity addressEntity =  new AddressEntity();
-                        addressEntity.setCity(address.getCity());
-                        addressEntity.setHouseNumber(address.getHouseNumber());
-                        addressEntity.setPinCode(address.getPinCode());
-                        //if we are using Many to one
-                        //addressEntity.setEmployeeEntity(employeeEntity);
-                        employeeEntity.addAddress(addressEntity);
-                        //addressEntities.add(addressEntity);
-                    }
-
-                    //employeeEntity.setAddressList(addressEntities);
-                    this.employeeRepository.save(employeeEntity);
-                }
-                return "success";
-            }*/
-
-
-
-
-
-
-
-            try {
-                driverRepository.save(driverTable);
-            } catch (Exception e) {
-                System.err.println("Error details " + e.getMessage());
-            }
-        }
-        return "success";
-    }
-}
-/*
-    // Update Logic
-    public String updateDriverDetails(DriverModel driverModel
-    ) {
-
-        DriverTable driverTable = driverRepository.findBylicense(driverModel.getDrivingLicense());
-
-        if (driverTable == null) {
-            return "Error: driver not found.";
-        }
+        DriverTable driverTable = new DriverTable();
         driverTable.setDriverId(driverModel.getDriverId());
-        driverTable.setDriverName(driverModel.getDriverName());
-        driverTable.setPhoneNo(driverModel.getPhoneNo());
-        driverTable.setDrivingLicense(driverModel.getDrivingLicense());
-
-        return "Driver details updated";
-    }
-
-    // Fetch Login
-    public DriverModel fetchDriverDetails(DriverModel drivertable) {
-        DriverTable driverTable = driverRepository.findBylicense(drivertable.getDrivingLicense());
-        DriverModel driverModel1 = new DriverModel();
-
-        if (driverTable != null) {
-
-            driverModel1.setDriverId(drivertable.getDriverId());
-            driverModel1.setDriverName(drivertable.getDriverName());
-            driverModel1.setPhoneNo(drivertable.getPhoneNo());
-            driverModel1.setDrivingLicense(drivertable.getDrivingLicense());
-
+        driverTable.setName(driverModel.getName());
+        driverTable.setPhone(driverModel.getPhone());
+        driverTable.setPhoto(driverModel.getPhoto());
+        if (licenseValidation(driverModel.getDriverLicenceNumber())) {
+            driverTable.setDriverLicenceNumber(driverModel.getDriverLicenceNumber());
+        } else {
+            return "Invalid Driving license!";
         }
-        return driverModel1;
-    }
 
-    public String deleteDriverInfo(Integer id) {
+        driverTable.setVendorId(vendorId);//getting VendorId from top variable
+
+        //To get address from driver model
+        DriverAddress driverAddressList = driverModel.getDriverAddress();
+
+
+        DriverAddressTable driverAddressTable = new DriverAddressTable();
+        driverAddressTable.setCity(driverAddressList.getCity());
+        driverAddressTable.setCountry(driverAddressList.getCountry());
+        driverAddressTable.setPin(driverAddressList.getPin());
+
+        driverTable.setDriverAddressTable(driverAddressTable);
+
         try {
-            driverRepository.deleteById(id);
+            //addressRepository.save(driverAddressTable);
+            driverRepository.save(driverTable);
         } catch (Exception e) {
-            System.err.println("Error Details ::" + e.getMessage());
+            System.err.println("Error details " + e.getMessage());
         }
-        return "Success";
+        // }
+        return "Driver data save successful";
+
     }
+
+
+    public boolean licenseValidation(String license) {
+        if (license.length() == 8 && Character.isLetter(license.charAt(0)) && Character.isLetter(license.charAt(1))
+                && Character.isDigit(license.charAt(license.length() - 2)) && Character.isAlphabetic(license.charAt(license.length() - 1))) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public List<DriverModel> findDriverInfo(String email) {
+        Integer vendorId = this.vendorRegRepository.findByVendorEmail("abc@test.com");
+        List<DriverTable> driverTableList = this.driverRepository.findByVendorId(vendorId);//fetched list of drivers from table and stored inside driverTableList
+        List<DriverModel> driverModelList = new ArrayList<>();// creating empty Model list to store all objects of driver
+
+        if (driverModelList != null) {
+
+            for (DriverTable driversTable : driverTableList) { //iterating and storing from driverTableList to driversTable
+
+                DriverAddressTable driverAddressTable = driversTable.getDriverAddressTable();//getting address only from list
+
+                DriverModel driverModel = new DriverModel();// creating object to store driver details from table
+
+                DriverAddress driverAddress = new DriverAddress();
+                driverModel.setName(driversTable.getName());
+                driverModel.setDriverId(driversTable.getDriverId());
+                driverModel.setPhone(driversTable.getPhone());
+                driverModel.setPhoto(driversTable.getPhoto());
+                driverModel.setDriverLicenceNumber(driversTable.getDriverLicenceNumber());
+                driverAddress.setCountry(driverAddressTable.getCountry());
+                driverAddress.setCity(driverAddressTable.getCity());
+                driverAddress.setPin(driverAddressTable.getPin());
+
+                driverModel.setDriverAddress(driverAddress);
+
+                driverModelList.add(driverModel);
+            }
+
+        }
+        return driverModelList;
+    }
+
+
+
+
+
+    public String deleteAll(List <String> driverLicense){
+        Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
+
+        try {
+            List<Integer> id = driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicense);// finding list of driver id;
+
+            driverRepository.deleteAllByIdIn(id);
+
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+
+        return " Driver Deleted";
+    }
+
+
+
+
+
 }
 
 
 
-*/
 
 
 
@@ -142,6 +144,18 @@ private AddressRepository addressRepository;
 
 
 
-
-
-
+    //Where driver id will be the primary key and each driver object will be having vendor id present
+//which will be derived from Vendor registration table. For each login we will be having the email
+//address, corresponding to each email address we can find out the vendor id.
+//Below validation must be satisfied,
+//1. Driving license should be having 8 character and starts with 2 letter and end with a
+//digit and a letter. If in case driving license is not present or invalid, show error
+//message as ‘Invalid Driving license!’
+//2. Mobile number should be 10 digit else will display error message as ‘Invalid mobile
+//number presents!!’
+//If above validation is successful, then save database to driver DB.
+//• Write retrieve api to fetch the driver details from Database
+//• Write update api to update driver information by vendor corresponding each saved
+//vendor
+//• Write Delete api to delete the driver information based on driver id and the vendor
+//id.

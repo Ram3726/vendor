@@ -13,10 +13,11 @@ public class CarInformation {
     private String baggageCapacity;
     private String carRegistration;
     private String carACorNonAc;
-    private float basePrice;
+    private double basePrice;
     private int yearsOld;
     private String insurance;
     private String status;
     private String imageUrl;
+    private int minKmDriven;
 
 }
