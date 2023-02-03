@@ -77,7 +77,7 @@ public class DriverService {
 
 
     public List<DriverModel> findDriverInfo(String email) {
-        Integer vendorId = this.vendorRegRepository.findByVendorEmail("abc@test.com");
+        Integer vendorId = this.vendorRegRepository.findByEmail("abc@test.com");
         List<DriverTable> driverTableList = this.driverRepository.findByVendorId(vendorId);//fetched list of drivers from table and stored inside driverTableList
         List<DriverModel> driverModelList = new ArrayList<>();// creating empty Model list to store all objects of driver
 
@@ -113,7 +113,7 @@ public class DriverService {
 
 
     public String deleteAll(List <String> driverLicense){
-        Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
 
         try {
             List<Integer> id = driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicense);// finding list of driver id;
