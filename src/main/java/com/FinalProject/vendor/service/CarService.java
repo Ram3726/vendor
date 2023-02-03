@@ -25,7 +25,7 @@ public class CarService {
 
 // fetching car details
     public List <CarInformation> fetchCarRecords(String email) { // method to fetch records by using vendor email
-        Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
         List<CarTable> carTable = this.carRepository.findByVendorId(vendorId);// fetching data and storing in 'carTable' by passing vendorId parameter
         List <CarInformation> carInformation = new ArrayList<>();// Array list to store data
         if(carTable != null){ // checking if carTable is not null go for next step
@@ -52,7 +52,7 @@ public class CarService {
 
 // updating car details
     public String updateCar(List<CarInformation> carInformation) {// list of car information
-        Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");//to find vendor id by using vendor email from vendor table to update in car table
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//to find vendor id by using vendor email from vendor table to update in car table
 
         List<String> carRegistrationDetails = new ArrayList<>();// to store carRegistrationDetails and  list created
 
@@ -80,7 +80,7 @@ public class CarService {
 
 
         public String deleteAll(List <String> carRegistration){
-            Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
+            Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
 
             try {
                 carRepository.deleteAllByVendorIdAndCarRegistrationIn(vendorId, carRegistration);
