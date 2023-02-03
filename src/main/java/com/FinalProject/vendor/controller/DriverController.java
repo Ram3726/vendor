@@ -31,18 +31,6 @@ public class DriverController {
 
 
 
-   /* @DeleteMapping("/delete")
-    public String delete(@RequestParam String license){
-
-        String msg = this.driverService.delete(license);
-
-        return msg;
-
-    }*/
-
-
-
-
     @DeleteMapping("/delete")
     public String delete(@RequestBody DeleteDriver deleteDriver){
 
