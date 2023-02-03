@@ -108,19 +108,7 @@ public class DriverService {
         return driverModelList;
     }
 
-   /* public String delete(String license) {
-        Integer vendorId = this.vendorRegRepository.findByVendorEmail("abc@test.com");
 
-       List<DriverTable> driverList = this.driverRepository.findByVendorId(vendorId);
-
-       for(DriverTable driverTable: driverList){
-
-           if(driverTable.getDriverLicenceNumber().matches(license)){
-               driverRepository.deleteByDriverLicenseNumber(license);
-           }
-       }
-        return "Deleted";
-    }*/
 
 
 
@@ -128,7 +116,10 @@ public class DriverService {
         Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
 
         try {
-            driverRepository.deleteAllByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicense);
+            List<Integer> id = driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicense);// finding list of driver id;
+
+            driverRepository.deleteAllByIdIn(id);
+
         }catch (Exception e){
             System.err.println(e.getMessage());
         }

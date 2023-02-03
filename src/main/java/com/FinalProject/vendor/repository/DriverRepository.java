@@ -15,8 +15,10 @@ public interface DriverRepository extends JpaRepository<DriverTable, Integer> {
 
     List<DriverTable> findByVendorId(Integer vendorId);// for fetching records
 
+
+    @Query("Select id from DriverTable where vendorId=:vId AND driverLicenceNumber in (:driverLicense)")
+    List<Integer> findByVendorIdAndDriverLicenceNumberIn(Integer vId, List<String> driverLicense);
     @Transactional// Spring transactional required at DML query
-    @Modifying// required for DML query
-    @Query("Delete from DriverTable where vendorId=:vId AND driverLicenceNumber in (:driverLicense)")
-    void deleteAllByVendorIdAndDriverLicenceNumberIn(Integer vId, List<String> driverLicense);
+    @Modifying
+    void deleteAllByIdIn(List<Integer> id);
 }
