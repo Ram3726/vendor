@@ -35,14 +35,12 @@ public class VendorRegController {
 
     @GetMapping("/fetch")  // Fetching
     public VendorRegistrationTable fetchData(@RequestParam String email) {
-
         return this.vendorRegRepository.findByVendorEmail(email);
     }
 
     @PutMapping("/update")  // Updating
     public String updateVendorDetail(@RequestBody VendorRegModel vendorRegModel) {
         this.vendorService.updateVendorDetail(vendorRegModel);
-
         return "VendorUpdated ";
 
     }

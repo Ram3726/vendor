@@ -1,15 +1,12 @@
 package com.FinalProject.vendor.service;
 
 import com.FinalProject.vendor.entity.CarTable;
-import com.FinalProject.vendor.entity.LoginTable;
-import com.FinalProject.vendor.entity.VendorRegistrationTable;
 import com.FinalProject.vendor.model.CarInformation;
 import com.FinalProject.vendor.repository.CarRepository;
 import com.FinalProject.vendor.repository.VendorRegRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 

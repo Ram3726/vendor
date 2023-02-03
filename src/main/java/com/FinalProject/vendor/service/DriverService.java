@@ -2,6 +2,7 @@ package com.FinalProject.vendor.service;
 
 import com.FinalProject.vendor.entity.DriverAddressTable;
 import com.FinalProject.vendor.entity.DriverTable;
+import com.FinalProject.vendor.entity.VendorRegistrationTable;
 import com.FinalProject.vendor.model.DriverAddress;
 import com.FinalProject.vendor.model.DriverModel;
 import com.FinalProject.vendor.repository.AddressRepository;
@@ -29,7 +30,7 @@ public class DriverService {
 
     public String saveDriverInfo(DriverModel driverModel) {
 
-        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");//to find vendor id from email
+        VendorRegistrationTable vendorRegistrationTable = this.vendorRegRepository.findById(driverModel.getVendorId());
 
         DriverTable driverTable = new DriverTable();
         driverTable.setDriverId(driverModel.getDriverId());
@@ -42,11 +43,10 @@ public class DriverService {
             return "Invalid Driving license!";
         }
 
-        driverTable.setVendorId(vendorId);//getting VendorId from top variable
+        driverTable.setVendorRegistrationTable(vendorRegistrationTable);//getting VendorId from top variable
 
         //To get address from driver model
         DriverAddress driverAddressList = driverModel.getDriverAddress();
-
 
         DriverAddressTable driverAddressTable = new DriverAddressTable();
         driverAddressTable.setCity(driverAddressList.getCity());
@@ -76,71 +76,38 @@ public class DriverService {
     }
 
 
-    public List<DriverModel> findDriverInfo(String email) {
-        Integer vendorId = this.vendorRegRepository.findByVendorEmail("abc@test.com");
-        List<DriverTable> driverTableList = this.driverRepository.findByVendorId(vendorId);//fetched list of drivers from table and stored inside driverTableList
-        List<DriverModel> driverModelList = new ArrayList<>();// creating empty Model list to store all objects of driver
-
-        if (driverModelList != null) {
-
-            for (DriverTable driversTable : driverTableList) { //iterating and storing from driverTableList to driversTable
-
-                DriverAddressTable driverAddressTable = driversTable.getDriverAddressTable();//getting address only from list
-
-                DriverModel driverModel = new DriverModel();// creating object to store driver details from table
-
-                DriverAddress driverAddress = new DriverAddress();
-                driverModel.setName(driversTable.getName());
-                driverModel.setDriverId(driversTable.getDriverId());
-                driverModel.setPhone(driversTable.getPhone());
-                driverModel.setPhoto(driversTable.getPhoto());
-                driverModel.setDriverLicenceNumber(driversTable.getDriverLicenceNumber());
-                driverAddress.setCountry(driverAddressTable.getCountry());
-                driverAddress.setCity(driverAddressTable.getCity());
-                driverAddress.setPin(driverAddressTable.getPin());
-
-                driverModel.setDriverAddress(driverAddress);
-
-                driverModelList.add(driverModel);
-            }
-
-        }
-        return driverModelList;
+    public DriverTable findDriverInfo(String licence) {
+        DriverTable driverTable = this.driverRepository.findByDriverLicenceNumber(licence);
+        return driverTable;
     }
 
+    public String updateDriverInfo(DriverModel driverModel) {
+
+        DriverTable driverTable = this.driverRepository.findByVendorId(driverModel.getVendorId());
+        driverTable.setPhone(driverModel.getPhone());
+        driverTable.setPhoto(driverModel.getPhoto());
 
 
+        //To get address from driver model
+        DriverAddress driverAddressList = driverModel.getDriverAddress();
 
+        DriverAddressTable driverAddressTable = new DriverAddressTable();
+        driverAddressTable.setCity(driverAddressList.getCity());
+        driverAddressTable.setCountry(driverAddressList.getCountry());
+        driverAddressTable.setPin(driverAddressList.getPin());
 
-    public String deleteAll(List <String> driverLicense){
-        Integer vendorId = vendorRegRepository.findByVendorEmail("abc@test.com");
+        driverTable.setDriverAddressTable(driverAddressTable);
 
         try {
-            List<Integer> id = driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicense);// finding list of driver id;
-
-            driverRepository.deleteAllByIdIn(id);
-
-        }catch (Exception e){
-            System.err.println(e.getMessage());
+            //addressRepository.save(driverAddressTable);
+            driverRepository.save(driverTable);
+        } catch (Exception e) {
+            System.err.println("Error details " + e.getMessage());
         }
-
-
-        return " Driver Deleted";
+        // }
+        return "Driver data save successful";
     }
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
 
 
 

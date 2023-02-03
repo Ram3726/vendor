@@ -10,4 +10,6 @@ public interface VendorRegRepository extends CrudRepository<VendorRegistrationTa
     Integer findByEmail(String email);
     @Query("Select v from VendorRegistrationTable v where v.email=:email")
     VendorRegistrationTable findByVendorEmail(String email);
+
+    VendorRegistrationTable findById(int id);
 }

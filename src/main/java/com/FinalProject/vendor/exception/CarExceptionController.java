@@ -1,3 +1,4 @@
+/*
 package com.FinalProject.vendor.exception;
 
 import org.springframework.http.HttpStatus;
@@ -12,3 +13,4 @@ public class CarExceptionController {
         return new ResponseEntity<>("Car Not found !!!", HttpStatus.NOT_FOUND);
     }
 }
+*/

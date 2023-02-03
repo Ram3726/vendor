@@ -12,6 +12,8 @@ public class DriverModel {
     private String driverLicenceNumber;
     private String photo;
 
+    private int vendorId;
+
     private DriverAddress driverAddress;
 
 

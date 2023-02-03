@@ -39,11 +39,11 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure (AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
         authenticationManagerBuilder.authenticationProvider(authenticationProvider());
   }
-  @Override
+/*  @Override
    public void configure(WebSecurity webSecurity) throws Exception{
         webSecurity.ignoring()
                 .antMatchers("vendorRegistration/save");
-  }
+  }*/
   @Override
     public void configure(HttpSecurity httpSecurity)throws Exception{
         httpSecurity.httpBasic()
@@ -53,6 +53,10 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/vendorRegistration/fetch").hasAnyAuthority("ADMIN","USER")
                 .antMatchers(HttpMethod.PUT, "/vendorRegistration/update").hasAnyAuthority("ADMIN","USER")
                 .antMatchers(HttpMethod.DELETE, "/vendorRegistration/delete").hasAuthority("USER")
+                .antMatchers(HttpMethod.POST,"/driverController/saveDriver").permitAll()
+                .antMatchers(HttpMethod.GET, "/driverController/driverDetails").hasAnyAuthority("ADMIN","USER")
+                .antMatchers(HttpMethod.PUT, "/driverController/update").hasAnyAuthority("ADMIN","USER")
+                .antMatchers(HttpMethod.DELETE, "/driverController/delete").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

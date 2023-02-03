@@ -1,15 +1,15 @@
-[{
-"driverId": "D101",
-"driverName": "Test",
-"address": {
-"city": "Chicago",
-"country": "USA",
-"pin": 132133
-},
-"phoneNo": 1212312312,
-"drivingLicense": "DA65453D",
- “vendorId”:2
-},
+{
+    "driverId": "D101",
+    "driverName": "Test",
+    "address": {
+        "city": "Chicago",
+        "country": "USA",
+        "pin": 132133
+    },
+    "phoneNo": 1212312312,
+    "driverLicenceNumber": "DA65453F",
+    "vendorId": "1"
+}
 {
 "driverId": "D102",
 "driverName": "Test",
@@ -19,9 +19,10 @@
 "pin": 132534
 },
 "phoneNo": 1786576233,
-"drivingLicense": "DA65453D",
- “vendorId”:2
+"driverLicenceNumber": "DA45453R",
+"vendorId": "2"
+
 }
-]
+
 
 

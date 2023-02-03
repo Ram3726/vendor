@@ -13,7 +13,8 @@ import java.util.List;
 
 public interface DriverRepository extends JpaRepository<DriverTable, Integer> {
 
-    List<DriverTable> findByVendorId(Integer vendorId);// for fetching records
+    @Query("Select d from DriverTable d where d.vendorRegistrationTable.id =:vendorId")
+    DriverTable findByVendorId(Integer vendorId);// for fetching records
 
 
     @Query("Select id from DriverTable where vendorId=:vId AND driverLicenceNumber in (:driverLicense)")
@@ -21,4 +22,6 @@ public interface DriverRepository extends JpaRepository<DriverTable, Integer> {
     @Transactional// Spring transactional required at DML query
     @Modifying
     void deleteAllByIdIn(List<Integer> id);
+
+    DriverTable findByDriverLicenceNumber(String licence);
 }

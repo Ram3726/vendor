@@ -1,8 +1,10 @@
 package com.FinalProject.vendor.controller;
 
+import com.FinalProject.vendor.entity.DriverTable;
 import com.FinalProject.vendor.model.DeleteCar;
 import com.FinalProject.vendor.model.DeleteDriver;
 import com.FinalProject.vendor.model.DriverModel;
+import com.FinalProject.vendor.repository.DriverRepository;
 import com.FinalProject.vendor.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
+    @Autowired
+    private DriverRepository driverRepository;
+
     @PostMapping("/saveDriver")
     public String saveDriver(@RequestBody DriverModel driverModel){
        String msg =this.driverService.saveDriverInfo(driverModel);
@@ -22,21 +27,23 @@ public class DriverController {
     }
 
     @GetMapping("/driverDetails")
-    public List<DriverModel>  findDriver(@RequestParam String email){
+    public void findDriver(@RequestParam String licence){
 
-        List<DriverModel> driverModels = this.driverService.findDriverInfo(email);
-
-        return driverModels;
+        this.driverService.findDriverInfo(licence);
     }
+
+@PutMapping("/update")
+public void update(@RequestBody DriverModel driverModel){
+
+        this.driverService.updateDriverInfo(driverModel);
+}
 
 
 
     @DeleteMapping("/delete")
-    public String delete(@RequestBody DeleteDriver deleteDriver){
-
-        String driverInformation = this.driverService.deleteAll(deleteDriver.getDriverLicenseToBeDeleted());
-
-        return driverInformation;
+    public String delete(@RequestParam Integer id){
+        this.driverRepository.deleteById(id);
+        return "Driver deleted successfully";
 
     }
 

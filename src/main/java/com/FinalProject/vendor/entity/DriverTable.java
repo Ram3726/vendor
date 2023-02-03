@@ -29,8 +29,9 @@ public class DriverTable {
     @Column(name = "photo")
     private String photo;
 
-    @Column(name = "vendor_Id")
-    private  Integer vendorId;
+    @OneToOne
+    @JoinColumn(name = "vendor_id")
+    private VendorRegistrationTable vendorRegistrationTable;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private DriverAddressTable driverAddressTable;
