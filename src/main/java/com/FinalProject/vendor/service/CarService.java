@@ -23,8 +23,8 @@ public class CarService {
 
 
 
-// fetching car details
-    public List <CarInformation> fetchCarRecords(String email) { // method to fetch records by using vendor email
+// fetching car details // Working fine
+/*    public List <CarInformation> fetchCarRecords(String email) { // method to fetch records by using vendor email
         Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
         List<CarTable> carTable = this.carRepository.findByVendorId(vendorId);// fetching data and storing in 'carTable' by passing vendorId parameter
         List <CarInformation> carInformation = new ArrayList<>();// Array list to store data
@@ -47,7 +47,44 @@ public class CarService {
 
         }
         return carInformation;
+    }*/
+
+
+    //working on fetch by car Registration
+    public List<CarInformation> fetchCarRecords(List <CarInformation> carRegistration) { // carRegistration bringing list of carRegistration attribute only from model
+        Integer vendorId = vendorRegRepository.findByEmail("abc@test.com"); // to find vendor Id
+
+        List<String> carRegistrationList = new ArrayList<>();// List created to store all carRegistration from model(it is empty)
+
+        for(CarInformation carRegistrationTemp: carRegistration){// loop to iterate and store into carRegistrationTemp from carRegistration(from model)
+            carRegistrationList.add(carRegistrationTemp.getCarRegistration());//carRegistrationList adding data from carRegistrationTemp
+        }
+
+       List <CarTable> carTable = this.carRepository.findByVendorIdAndCarRegistrationIn(vendorId,carRegistrationList);// fetching data and storing into 'carTable' by passing vendorId and carRegistrationList
+
+        List <CarInformation> carInformation = new ArrayList<>();// Array list to store data(it is empty)
+        //CarInformation carInformation1 = null;
+        if (carTable != null) { // checking if carTable is not null go for next step
+             for( CarTable cars: carTable) { // for each loop to iterate. 'carTable' data pass to cars.
+                 CarInformation carInformation1 = new CarInformation(); //object created to store attribute of car
+            carInformation1.setCarModel(cars.getCarModel());// iterating and setting data from cars(carTable) to carInformation1 (temporary)
+            carInformation1.setCarACorNonAc(cars.getCarACorNonAc()); //iterating and setting data from cars(carTable) to carInformation1 (temporary)
+            carInformation1.setCarSeater(cars.getCarSeater());
+            carInformation1.setCarType(cars.getCarType());
+            carInformation1.setCarRegistration(cars.getCarRegistration());
+            carInformation1.setStatus(cars.getStatus());
+            carInformation1.setBaggageCapacity(cars.getBaggageCapacity());
+            carInformation1.setBasePrice(cars.getBasePrice());
+            carInformation1.setImageUrl(cars.getImageUrl());
+            carInformation1.setInsurance(cars.getInsurance());
+            carInformation1.setYearsOld(cars.getYearsOld());
+            carInformation.add(carInformation1);// list carInformation adding object into
+            }
+
+        }
+        return carInformation;
     }
+
 
 
 // updating car details

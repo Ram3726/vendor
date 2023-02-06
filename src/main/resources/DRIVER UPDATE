@@ -1,0 +1,12 @@
+[{
+
+  "name": "Ramesh",
+  "phone": "1786576233",
+  "driverLicenceNumber": "DA65453D",
+  "photo": "noc.png",
+  "driverAddress": {
+    "city": "Cary",
+    "country": "US",
+    "pin": "6789"
+  }
+}]

@@ -1,8 +1,8 @@
-GET
-Param
-
-By vendor email
-
-Eg.
-
-email   abc@test.com
+[
+    {
+        "carRegistration": "KA4234AC"
+    },
+    {
+        "carRegistration": "KA4234AT"
+    }
+]

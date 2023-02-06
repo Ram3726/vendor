@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DriverService {
@@ -34,7 +33,13 @@ public class DriverService {
         DriverTable driverTable = new DriverTable();
         driverTable.setDriverId(driverModel.getDriverId());
         driverTable.setName(driverModel.getName());
-        driverTable.setPhone(driverModel.getPhone());
+
+        if(phoneValidation(driverModel.getPhone())){
+            driverTable.setPhone(driverModel.getPhone());
+        }else{
+            return "invalid phone";
+        }
+
         driverTable.setPhoto(driverModel.getPhoto());
         if (licenseValidation(driverModel.getDriverLicenceNumber())) {
             driverTable.setDriverLicenceNumber(driverModel.getDriverLicenceNumber());
@@ -66,7 +71,7 @@ public class DriverService {
 
     }
 
-
+//VALIDATION
     public boolean licenseValidation(String license) {
         if (license.length() == 8 && Character.isLetter(license.charAt(0)) && Character.isLetter(license.charAt(1))
                 && Character.isDigit(license.charAt(license.length() - 2)) && Character.isAlphabetic(license.charAt(license.length() - 1))) {
@@ -75,43 +80,68 @@ public class DriverService {
         return false;
     }
 
-
-    public List<DriverModel> findDriverInfo(String email) {
-        Integer vendorId = this.vendorRegRepository.findByEmail("abc@test.com");
-        List<DriverTable> driverTableList = this.driverRepository.findByVendorId(vendorId);//fetched list of drivers from table and stored inside driverTableList
-        List<DriverModel> driverModelList = new ArrayList<>();// creating empty Model list to store all objects of driver
-
-        if (driverModelList != null) {
-
-            for (DriverTable driversTable : driverTableList) { //iterating and storing from driverTableList to driversTable
-
-                DriverAddressTable driverAddressTable = driversTable.getDriverAddressTable();//getting address only from list
-
-                DriverModel driverModel = new DriverModel();// creating object to store driver details from table
-
-                DriverAddress driverAddress = new DriverAddress();
-                driverModel.setName(driversTable.getName());
-                driverModel.setDriverId(driversTable.getDriverId());
-                driverModel.setPhone(driversTable.getPhone());
-                driverModel.setPhoto(driversTable.getPhoto());
-                driverModel.setDriverLicenceNumber(driversTable.getDriverLicenceNumber());
-                driverAddress.setCountry(driverAddressTable.getCountry());
-                driverAddress.setCity(driverAddressTable.getCity());
-                driverAddress.setPin(driverAddressTable.getPin());
-
-                driverModel.setDriverAddress(driverAddress);
-
-                driverModelList.add(driverModel);
-            }
-
+    public boolean phoneValidation(String phone){
+        if(phone.matches("\\d{10}")){
+            return true;
         }
-        return driverModelList;
+        return false;
     }
 
 
 
 
+//GET Driver details by using license
+public List<DriverModel> findDriver(List<DriverModel> driverLicense) { //fetching by list of license
 
+    Integer vendorId = this.vendorRegRepository.findByEmail("abc@test.com");
+
+    List<String> driverLicenseList = new ArrayList<>();// creating empty Model list to store all objects of driver
+
+    for (DriverModel driverLicenseListTemp : driverLicense) {
+
+        driverLicenseList.add(driverLicenseListTemp.getDriverLicenceNumber());//All from model store into driverLicenseList
+
+    }
+
+    List<Integer> id =  this.driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicenseList);
+
+    List<DriverTable> driverTableList = driverRepository.findAllByIdIn(id);//fetched list of drivers from table and stored inside driverTableList
+
+
+    List<DriverModel> driverAllDetailsList = new ArrayList<>();
+
+    if (driverLicenseList != null) {
+
+        for (DriverTable driversTable : driverTableList) { //iterating and storing from driverTableList to driversTable
+
+            DriverAddressTable driverAddressTable = driversTable.getDriverAddressTable();//getting address only from driversTable
+
+
+            DriverModel driverModel = new DriverModel();// creating object to store driver details from table
+            DriverAddress driverAddress = new DriverAddress(); // creating object to store driver Address details from Address table
+
+
+            driverModel.setName(driversTable.getName()); //setting name from table to model
+            driverModel.setDriverId(driversTable.getDriverId());
+            driverModel.setPhone(driversTable.getPhone());
+            driverModel.setPhoto(driversTable.getPhoto());
+            driverModel.setDriverLicenceNumber(driversTable.getDriverLicenceNumber());
+
+            //passing from address table to object references
+            driverAddress.setCountry(driverAddressTable.getCountry());// setting country from driver address table to driver address model
+            driverAddress.setCity(driverAddressTable.getCity());
+            driverAddress.setPin(driverAddressTable.getPin());
+
+            driverModel.setDriverAddress(driverAddress);// address reference passing to driver model references
+
+            driverAllDetailsList.add(driverModel);
+        }
+
+    }
+    return driverAllDetailsList;
+}
+
+//DELETE driver
     public String deleteAll(List <String> driverLicense){
         Integer vendorId = vendorRegRepository.findByEmail("abc@test.com");
 
@@ -128,10 +158,43 @@ public class DriverService {
         return " Driver Deleted";
     }
 
+//UPDATE
+    public String updateDriver(List<DriverModel> driverModels) {
+
+    Integer vendorId = this.vendorRegRepository.findByEmail("abc@test.com");
 
 
 
+        List<String> driverLicenseList = new ArrayList<>();//Empty licences list
 
+    for( DriverModel driverModelList : driverModels ){
+        driverLicenseList.add(driverModelList.getDriverLicenceNumber());//adding license from model
+
+    }
+
+        List<Integer> id =  this.driverRepository.findByVendorIdAndDriverLicenceNumberIn(vendorId, driverLicenseList);
+        List<DriverTable> driverTableList = driverRepository.findAllByIdIn(id);//fetched list of drivers from table and stored inside driverTableList
+
+        for (DriverTable driverTable : driverTableList) {
+            DriverAddressTable driverAddressTables = driverTable.getDriverAddressTable();
+            for (DriverModel driverModelList : driverModels) {
+                driverTable.setName(driverModelList.getName());
+                driverTable.setPhone(driverModelList.getPhone());
+                driverTable.setPhoto(driverModelList.getPhoto());
+
+                driverAddressTables.setCountry(driverModelList.getDriverAddress().getCountry());
+                driverAddressTables.setCity(driverModelList.getDriverAddress().getCity());
+                driverAddressTables.setPin(driverModelList.getDriverAddress().getPin());
+
+                driverTable.setDriverAddressTable(driverAddressTables);
+
+                driverRepository.save(driverTable);
+            }
+
+        }
+
+    return "driver info updated";
+    }
 }
 
 

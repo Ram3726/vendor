@@ -1,6 +1,5 @@
 package com.FinalProject.vendor.controller;
 
-import com.FinalProject.vendor.model.DeleteCar;
 import com.FinalProject.vendor.model.DeleteDriver;
 import com.FinalProject.vendor.model.DriverModel;
 import com.FinalProject.vendor.service.DriverService;
@@ -21,13 +20,24 @@ public class DriverController {
         return  msg;
     }
 
-    @GetMapping("/driverDetails")
-    public List<DriverModel>  findDriver(@RequestParam String email){
 
-        List<DriverModel> driverModels = this.driverService.findDriverInfo(email);
-
+    @GetMapping("/driverDetails")  //new (fetching by driver license)
+    public List<DriverModel> findDriver(@RequestBody List<DriverModel> driverLicense){
+        List<DriverModel> driverModels = this.driverService.findDriver(driverLicense);
         return driverModels;
-    }
+
+        }
+
+
+        @PutMapping("/update")
+        public String update(@RequestBody List<DriverModel> driverModels){
+
+        String updateMsg = this.driverService.updateDriver(driverModels);
+
+
+        return updateMsg;
+        }
+
 
 
 

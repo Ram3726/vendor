@@ -11,9 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CarRepository extends CrudRepository<CarTable, Integer> {
-    List<CarTable> findByVendorId(Integer vendorId);// for fetching records
 
-    List<CarTable> findByVendorIdAndCarRegistrationIn(Integer vendorId, List<String> carRegistration);// for fetching records
+//    List<CarTable> findByVendorId(Integer vendorId);// running for fetching, working fine
+
+    //CarTable findByCarRegistration(String carRegistration);// in progress fetching for GET
+
+
+    List<CarTable> findByVendorIdAndCarRegistrationIn(Integer vendorId, List<String> carRegistration);// fetching for Update part
 
 
     @Transactional// Spring transactional required at DML query

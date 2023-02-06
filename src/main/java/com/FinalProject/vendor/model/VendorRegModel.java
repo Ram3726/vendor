@@ -13,13 +13,11 @@ public class VendorRegModel {
 
     private String firstName;
     private String lastName;
-    //private String companyName;
     private String address;
     private String email;
     private String phoneNumber;
     private String password;
     private String confirmPassword;
-    //private String operatingCity;
     private String licenseNumber;
     private String businessRegistrationNo;
     private String status;

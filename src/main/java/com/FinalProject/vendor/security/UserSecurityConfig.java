@@ -53,6 +53,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/vendorRegistration/fetch").hasAnyAuthority("ADMIN","USER")
                 .antMatchers(HttpMethod.PUT, "/vendorRegistration/update").hasAnyAuthority("ADMIN","USER")
                 .antMatchers(HttpMethod.DELETE, "/vendorRegistration/delete").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/carController/carsDetailsByEmail").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

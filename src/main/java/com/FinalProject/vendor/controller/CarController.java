@@ -25,13 +25,14 @@ public class CarController {
     }
 
 
-    @GetMapping("/carsDetailsByEmail") //fetch by vendor email
+      @GetMapping("/carsDetails") //fetch by List of CarRegistration
 
-    public List<CarInformation> finData(@RequestParam String email){// vendor email needed as parameter
-        List <CarInformation> carInformation = this.carService.fetchCarRecords(email);
+    public List <CarInformation> finData(@RequestBody List<CarInformation> carRegistration){// vendor email needed as parameter
+        List<CarInformation> carInformation = this.carService.fetchCarRecords(carRegistration);
 
         return carInformation;
     }
+
 
 
     @PutMapping("/update")//update records in car Table
